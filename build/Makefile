@@ -129,6 +129,30 @@ mig_scheduler.exe/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/mig_scheduler.exe.dir/build.make CMakeFiles/mig_scheduler.exe.dir/build
 .PHONY : mig_scheduler.exe/fast
 
+src/GPU_config.o: src/GPU_config.cpp.o
+.PHONY : src/GPU_config.o
+
+# target to build an object file
+src/GPU_config.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mig_scheduler.exe.dir/build.make CMakeFiles/mig_scheduler.exe.dir/src/GPU_config.cpp.o
+.PHONY : src/GPU_config.cpp.o
+
+src/GPU_config.i: src/GPU_config.cpp.i
+.PHONY : src/GPU_config.i
+
+# target to preprocess a source file
+src/GPU_config.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mig_scheduler.exe.dir/build.make CMakeFiles/mig_scheduler.exe.dir/src/GPU_config.cpp.i
+.PHONY : src/GPU_config.cpp.i
+
+src/GPU_config.s: src/GPU_config.cpp.s
+.PHONY : src/GPU_config.s
+
+# target to generate assembly for a file
+src/GPU_config.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mig_scheduler.exe.dir/build.make CMakeFiles/mig_scheduler.exe.dir/src/GPU_config.cpp.s
+.PHONY : src/GPU_config.cpp.s
+
 src/MIG_manager.o: src/MIG_manager.cpp.o
 .PHONY : src/MIG_manager.o
 
@@ -258,6 +282,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... mig_scheduler.exe"
+	@echo "... src/GPU_config.o"
+	@echo "... src/GPU_config.i"
+	@echo "... src/GPU_config.s"
 	@echo "... src/MIG_manager.o"
 	@echo "... src/MIG_manager.i"
 	@echo "... src/MIG_manager.s"

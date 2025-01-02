@@ -69,10 +69,24 @@ include CMakeFiles/mig_scheduler.exe.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/mig_scheduler.exe.dir/flags.make
 
+CMakeFiles/mig_scheduler.exe.dir/src/GPU_config.cpp.o: CMakeFiles/mig_scheduler.exe.dir/flags.make
+CMakeFiles/mig_scheduler.exe.dir/src/GPU_config.cpp.o: /home/jorvil01/FAR_MIG_scheduler/src/GPU_config.cpp
+CMakeFiles/mig_scheduler.exe.dir/src/GPU_config.cpp.o: CMakeFiles/mig_scheduler.exe.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jorvil01/FAR_MIG_scheduler/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/mig_scheduler.exe.dir/src/GPU_config.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/mig_scheduler.exe.dir/src/GPU_config.cpp.o -MF CMakeFiles/mig_scheduler.exe.dir/src/GPU_config.cpp.o.d -o CMakeFiles/mig_scheduler.exe.dir/src/GPU_config.cpp.o -c /home/jorvil01/FAR_MIG_scheduler/src/GPU_config.cpp
+
+CMakeFiles/mig_scheduler.exe.dir/src/GPU_config.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/mig_scheduler.exe.dir/src/GPU_config.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jorvil01/FAR_MIG_scheduler/src/GPU_config.cpp > CMakeFiles/mig_scheduler.exe.dir/src/GPU_config.cpp.i
+
+CMakeFiles/mig_scheduler.exe.dir/src/GPU_config.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/mig_scheduler.exe.dir/src/GPU_config.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jorvil01/FAR_MIG_scheduler/src/GPU_config.cpp -o CMakeFiles/mig_scheduler.exe.dir/src/GPU_config.cpp.s
+
 CMakeFiles/mig_scheduler.exe.dir/src/MIG_manager.cpp.o: CMakeFiles/mig_scheduler.exe.dir/flags.make
 CMakeFiles/mig_scheduler.exe.dir/src/MIG_manager.cpp.o: /home/jorvil01/FAR_MIG_scheduler/src/MIG_manager.cpp
 CMakeFiles/mig_scheduler.exe.dir/src/MIG_manager.cpp.o: CMakeFiles/mig_scheduler.exe.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jorvil01/FAR_MIG_scheduler/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/mig_scheduler.exe.dir/src/MIG_manager.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jorvil01/FAR_MIG_scheduler/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/mig_scheduler.exe.dir/src/MIG_manager.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/mig_scheduler.exe.dir/src/MIG_manager.cpp.o -MF CMakeFiles/mig_scheduler.exe.dir/src/MIG_manager.cpp.o.d -o CMakeFiles/mig_scheduler.exe.dir/src/MIG_manager.cpp.o -c /home/jorvil01/FAR_MIG_scheduler/src/MIG_manager.cpp
 
 CMakeFiles/mig_scheduler.exe.dir/src/MIG_manager.cpp.i: cmake_force
@@ -86,7 +100,7 @@ CMakeFiles/mig_scheduler.exe.dir/src/MIG_manager.cpp.s: cmake_force
 CMakeFiles/mig_scheduler.exe.dir/src/main.cpp.o: CMakeFiles/mig_scheduler.exe.dir/flags.make
 CMakeFiles/mig_scheduler.exe.dir/src/main.cpp.o: /home/jorvil01/FAR_MIG_scheduler/src/main.cpp
 CMakeFiles/mig_scheduler.exe.dir/src/main.cpp.o: CMakeFiles/mig_scheduler.exe.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jorvil01/FAR_MIG_scheduler/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/mig_scheduler.exe.dir/src/main.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jorvil01/FAR_MIG_scheduler/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/mig_scheduler.exe.dir/src/main.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/mig_scheduler.exe.dir/src/main.cpp.o -MF CMakeFiles/mig_scheduler.exe.dir/src/main.cpp.o.d -o CMakeFiles/mig_scheduler.exe.dir/src/main.cpp.o -c /home/jorvil01/FAR_MIG_scheduler/src/main.cpp
 
 CMakeFiles/mig_scheduler.exe.dir/src/main.cpp.i: cmake_force
@@ -100,7 +114,7 @@ CMakeFiles/mig_scheduler.exe.dir/src/main.cpp.s: cmake_force
 CMakeFiles/mig_scheduler.exe.dir/src/profiler.cpp.o: CMakeFiles/mig_scheduler.exe.dir/flags.make
 CMakeFiles/mig_scheduler.exe.dir/src/profiler.cpp.o: /home/jorvil01/FAR_MIG_scheduler/src/profiler.cpp
 CMakeFiles/mig_scheduler.exe.dir/src/profiler.cpp.o: CMakeFiles/mig_scheduler.exe.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jorvil01/FAR_MIG_scheduler/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/mig_scheduler.exe.dir/src/profiler.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jorvil01/FAR_MIG_scheduler/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/mig_scheduler.exe.dir/src/profiler.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/mig_scheduler.exe.dir/src/profiler.cpp.o -MF CMakeFiles/mig_scheduler.exe.dir/src/profiler.cpp.o.d -o CMakeFiles/mig_scheduler.exe.dir/src/profiler.cpp.o -c /home/jorvil01/FAR_MIG_scheduler/src/profiler.cpp
 
 CMakeFiles/mig_scheduler.exe.dir/src/profiler.cpp.i: cmake_force
@@ -114,7 +128,7 @@ CMakeFiles/mig_scheduler.exe.dir/src/profiler.cpp.s: cmake_force
 CMakeFiles/mig_scheduler.exe.dir/src/scheduler.cpp.o: CMakeFiles/mig_scheduler.exe.dir/flags.make
 CMakeFiles/mig_scheduler.exe.dir/src/scheduler.cpp.o: /home/jorvil01/FAR_MIG_scheduler/src/scheduler.cpp
 CMakeFiles/mig_scheduler.exe.dir/src/scheduler.cpp.o: CMakeFiles/mig_scheduler.exe.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jorvil01/FAR_MIG_scheduler/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/mig_scheduler.exe.dir/src/scheduler.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jorvil01/FAR_MIG_scheduler/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/mig_scheduler.exe.dir/src/scheduler.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/mig_scheduler.exe.dir/src/scheduler.cpp.o -MF CMakeFiles/mig_scheduler.exe.dir/src/scheduler.cpp.o.d -o CMakeFiles/mig_scheduler.exe.dir/src/scheduler.cpp.o -c /home/jorvil01/FAR_MIG_scheduler/src/scheduler.cpp
 
 CMakeFiles/mig_scheduler.exe.dir/src/scheduler.cpp.i: cmake_force
@@ -128,7 +142,7 @@ CMakeFiles/mig_scheduler.exe.dir/src/scheduler.cpp.s: cmake_force
 CMakeFiles/mig_scheduler.exe.dir/src/utils.cpp.o: CMakeFiles/mig_scheduler.exe.dir/flags.make
 CMakeFiles/mig_scheduler.exe.dir/src/utils.cpp.o: /home/jorvil01/FAR_MIG_scheduler/src/utils.cpp
 CMakeFiles/mig_scheduler.exe.dir/src/utils.cpp.o: CMakeFiles/mig_scheduler.exe.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jorvil01/FAR_MIG_scheduler/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/mig_scheduler.exe.dir/src/utils.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jorvil01/FAR_MIG_scheduler/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/mig_scheduler.exe.dir/src/utils.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/mig_scheduler.exe.dir/src/utils.cpp.o -MF CMakeFiles/mig_scheduler.exe.dir/src/utils.cpp.o.d -o CMakeFiles/mig_scheduler.exe.dir/src/utils.cpp.o -c /home/jorvil01/FAR_MIG_scheduler/src/utils.cpp
 
 CMakeFiles/mig_scheduler.exe.dir/src/utils.cpp.i: cmake_force
@@ -141,6 +155,7 @@ CMakeFiles/mig_scheduler.exe.dir/src/utils.cpp.s: cmake_force
 
 # Object files for target mig_scheduler.exe
 mig_scheduler_exe_OBJECTS = \
+"CMakeFiles/mig_scheduler.exe.dir/src/GPU_config.cpp.o" \
 "CMakeFiles/mig_scheduler.exe.dir/src/MIG_manager.cpp.o" \
 "CMakeFiles/mig_scheduler.exe.dir/src/main.cpp.o" \
 "CMakeFiles/mig_scheduler.exe.dir/src/profiler.cpp.o" \
@@ -150,6 +165,7 @@ mig_scheduler_exe_OBJECTS = \
 # External object files for target mig_scheduler.exe
 mig_scheduler_exe_EXTERNAL_OBJECTS =
 
+mig_scheduler.exe: CMakeFiles/mig_scheduler.exe.dir/src/GPU_config.cpp.o
 mig_scheduler.exe: CMakeFiles/mig_scheduler.exe.dir/src/MIG_manager.cpp.o
 mig_scheduler.exe: CMakeFiles/mig_scheduler.exe.dir/src/main.cpp.o
 mig_scheduler.exe: CMakeFiles/mig_scheduler.exe.dir/src/profiler.cpp.o
@@ -159,7 +175,7 @@ mig_scheduler.exe: CMakeFiles/mig_scheduler.exe.dir/build.make
 mig_scheduler.exe: /usr/local/cuda-12.3/lib64/libcudart_static.a
 mig_scheduler.exe: /usr/lib/x86_64-linux-gnu/librt.a
 mig_scheduler.exe: CMakeFiles/mig_scheduler.exe.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/jorvil01/FAR_MIG_scheduler/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable mig_scheduler.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/jorvil01/FAR_MIG_scheduler/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable mig_scheduler.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/mig_scheduler.exe.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
