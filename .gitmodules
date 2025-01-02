@@ -1,0 +1,6 @@
+[submodule "test/kernels/gpu-rodinia"]
+	path = test/kernels/gpu-rodinia
+	url = https://github.com/yuhc/gpu-rodinia.git
+[submodule "test/kernels/test/kernels/gpu-rodinia"]
+	path = test/kernels/test/kernels/gpu-rodinia
+	url = https://github.com/yuhc/gpu-rodinia.git
