@@ -7,11 +7,13 @@ using namespace std;
 
 struct Task {
 
-    string execScriptPath; // Path to the script that executes the kernel
+    string exec_script_path; // Path to the script that executes the kernel
 
-    unordered_map<int, double> execTimes; // Execution times profiled for the kernel
+    unordered_map<int, double> exec_times; // Execution times profiled for the kernel
 
-    Task(const string& path) : execScriptPath(path) {}
+    Task(const string& path) : exec_script_path(path) {
+        exec_times = {};
+    }
 };
 
 

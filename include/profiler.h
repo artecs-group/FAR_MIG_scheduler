@@ -6,6 +6,6 @@
 #include <nvml.h>
 using namespace std;
 
-void set_exec_times(const vector<Task> & tasks, nvmlDevice_t device);
+void set_exec_times(vector<Task> & tasks, nvmlDevice_t device);
 
 #endif // PROFILER_H
