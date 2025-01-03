@@ -13,7 +13,7 @@ string get_gpu_name(nvmlDevice_t device){
    char name[NVML_DEVICE_NAME_BUFFER_SIZE];
    nvmlReturn_t result = nvmlDeviceGetName(device, name, NVML_DEVICE_NAME_BUFFER_SIZE);
     if (result == NVML_SUCCESS) {
-        cout << "Ok! GPU model: " << name << " detected" << endl;
+        LOG_INFO("GPU model: " + string(name) + " detected");
     } else {
         LOG_ERROR("Error obteniendo el nombre de la GPU: " + string(nvmlErrorString(result)));
     }
@@ -26,7 +26,7 @@ void init_nvml(){
         LOG_ERROR("Failed to initialize NVML: " + string(nvmlErrorString(result)));
         exit(1);
     }
-    cout << "Ok! NVML has been initialized" << endl;
+    LOG_INFO("NVML has been initialized");
 }
 
 nvmlDevice_t bind_device(int gpu_number){
@@ -36,7 +36,7 @@ nvmlDevice_t bind_device(int gpu_number){
         LOG_ERROR("Failed to bind device: " + string(nvmlErrorString(result)));
         exit(1);
     }
-    cout << "Ok! Device has been binded" << endl;
+    LOG_INFO("Device has been binded");
     return device;
 }
 
@@ -46,7 +46,7 @@ void MIG_enable(nvmlDevice_t device, int gpu_number){
     if (result != NVML_SUCCESS) {
         LOG_ERROR("Failed to activate MIG: " + string(nvmlErrorString(result)));
     }
-    cout << "Ok! MIG has been activated" << endl;
+    LOG_INFO("MIG has been activated");
 }
 
 void MIG_disable(nvmlDevice_t device, int gpu_number){
@@ -55,7 +55,7 @@ void MIG_disable(nvmlDevice_t device, int gpu_number){
     if (result != NVML_SUCCESS) {
         LOG_ERROR("Failed to deactivate MIG: " + string(nvmlErrorString(result)));
     }
-    cout << "Ok! MIG has been deactivated" << endl;
+    LOG_INFO("Ok! MIG has been deactivated");
 }
 
 static void destroy_all_compute_instances(nvmlGpuInstance_t gpu_instance, unsigned int ci_profile){
@@ -94,7 +94,6 @@ void destroy_all_instances(nvmlDevice_t device){
         nvmlGpuInstanceProfileInfo_t info;
         nvmlReturn_t result = nvmlDeviceGetGpuInstanceProfileInfo(device, profile, &info);
         if(result != NVML_SUCCESS){
-            cout << instance_size << '\n';
             LOG_ERROR("Failed to get GPU instance profile info: " + string(nvmlErrorString(result)));
             exit(1);
         }
@@ -117,7 +116,7 @@ void destroy_all_instances(nvmlDevice_t device){
         destroyed_count += count;
     }
 
-    cout << "Ok! All GPU instances have been destroyed: " << destroyed_count << " instances" << endl;
+    LOG_INFO("All GPU instances have been destroyed: " + to_string(destroyed_count) << " instances");
 
     free(gpu_instances);
 
@@ -165,7 +164,7 @@ void create_instance(nvmlDevice_t device, Instance & instance){
             exit(1);
     }
     instance.computeInstance = computeInstance;
-    cout << "Ok! " << instance << " has been created" << endl;
+    cout << "INFO: " << instance << " has been created\n";
 }
 
 

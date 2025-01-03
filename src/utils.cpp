@@ -1,7 +1,6 @@
 #include "utils.h"
 #include <fstream>
 #include <vector>
-#include <iostream>
 #include <sys/stat.h>
 #include <unistd.h>
 using namespace std;
@@ -9,7 +8,7 @@ using namespace std;
 static bool readPathsFromFile(const string & filename, vector<string>& paths){
     ifstream file(filename);
     if (!file.is_open()){
-        cerr << "Error: could not open file " << filename << endl;
+        LOG_ERROR("Could not open file " + filename);
         return false;
     }
     string line;
@@ -33,7 +32,7 @@ vector<Task> validate_scripts(const string & kernels_filename){
         // Verify if the path is valid and executable
         bool isValid = (stat(path.c_str(), &fileInfo) == 0) && (fileInfo.st_mode & S_IXUSR);
         if (!isValid){
-            cerr << "Error: path " << path << " doesn't exist or is not executable" << endl;
+            LOG_ERROR("Path " + path + " doesn't exist or is not executable");
             continue;
         }
         tasks.push_back(Task(path));
