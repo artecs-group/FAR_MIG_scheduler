@@ -1,9 +1,8 @@
 #include <iostream>
-#include "utils.h"
 #include "GPU_config.h"
 #include "MIG_manager.h"
-#include "task.h"
-#include "profiler.h"
+#include "tasks.h"
+#include "logging.h"
 using namespace std;
 
 int main(int argc, char* argv[]){
@@ -24,9 +23,9 @@ int main(int argc, char* argv[]){
      initialize_GPU_config(gpu_name);
 
      // Validate the scripts for scheduling
-     vector<Task> tasks = validate_scripts(kernels_filename);
+     vector<Task> tasks = get_tasks(kernels_filename);
      if (tasks.empty()){
-          cerr << "Error: no valid tasks for scheduling" << endl;
+          LOG_ERROR("No valid tasks for scheduling. Problem parsing the file " + kernels_filename);
           return 1;
      }
 
@@ -34,7 +33,9 @@ int main(int argc, char* argv[]){
      MIG_enable(device, gpu_number);
 
      // Profile tasks to get their execution times for each instance size
-     set_exec_times(tasks, device);
+     for (auto & task: tasks){
+          task.profile_times(device);
+     }
 
      //Disable MIG
      MIG_disable(device, gpu_number);

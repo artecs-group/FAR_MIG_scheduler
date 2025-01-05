@@ -1,10 +1,9 @@
 #include "MIG_manager.h"
 #include "GPU_config.h"
-#include "utils.h"
+#include "logging.h"
 #include <iostream>
 #include <cuda_runtime.h>
 #include <nvml.h>
-#include <stdlib.h>
 
 using namespace std;
 
@@ -122,14 +121,60 @@ void destroy_all_instances(nvmlDevice_t device){
 
 }
 
-void create_instance(nvmlDevice_t device, Instance & instance){
+static string get_instance_uuid(nvmlDevice_t device, nvmlGpuInstance_t gpuInstance){
+    // Get de id of this gpu instance
+    nvmlGpuInstanceInfo_t gi_info;
+    nvmlReturn_t result = nvmlGpuInstanceGetInfo(gpuInstance, &gi_info);
+    if(result != NVML_SUCCESS){
+        LOG_ERROR("Failed to get GPU instance info: " + string(nvmlErrorString(result)));
+        exit(1);
+    }
+    unsigned int target_id = gi_info.id;
+    unsigned int max_instances;
+    result = nvmlDeviceGetMaxMigDeviceCount(device, &max_instances);
+    if(result != NVML_SUCCESS){
+        LOG_ERROR("Failed to get max MIG device count: " + string(nvmlErrorString(result)));
+        exit(1);
+    }
+    // Search for its device handle
+    nvmlDevice_t mig_device;
+    for (int i = 0; i < max_instances; i++){     
+        result = nvmlDeviceGetMigDeviceHandleByIndex (device, i, &mig_device);
+        if(result != NVML_SUCCESS){
+            LOG_ERROR("Failed to get MIG device handle: " + string(nvmlErrorString(result)));
+            exit(1);
+        }
+        unsigned int id;
+        result = nvmlDeviceGetGpuInstanceId(mig_device, &id);
+        if(result != NVML_SUCCESS){
+            LOG_ERROR("Failed to get GPU instance ID: " + string(nvmlErrorString(result)));
+            exit(1);
+        }
+        if(id == target_id){           
+            break;
+        }       
+    }
+
+    // Get the UUID with the handle
+    char uuid[NVML_DEVICE_UUID_V2_BUFFER_SIZE];
+    result = nvmlDeviceGetUUID(mig_device, uuid, NVML_DEVICE_UUID_V2_BUFFER_SIZE);
+    if(result != NVML_SUCCESS){
+        LOG_ERROR("Failed to get instance UUID: " + string(nvmlErrorString(result)));
+        exit(1);
+    }
+    else LOG_INFO("Instance UUID: " + string(uuid));
+
+    return string(uuid); 
+}
+
+Instance create_instance(nvmlDevice_t device, size_t start, size_t size){
     nvmlReturn_t result;
     
     // Create GPU instance
     nvmlGpuInstance_t gpuInstance;
     nvmlGpuInstancePlacement_t placement;
-    placement.start = instance.start;
-    placement.size = instance.size;
+    placement.start = start;
+    placement.size = size;
 
     // Get GPU instance profile
     nvmlGpuInstanceProfileInfo_t gi_info;
@@ -145,8 +190,6 @@ void create_instance(nvmlDevice_t device, Instance & instance){
         LOG_ERROR("Failed creating gpu instance: " + string(nvmlErrorString(result)));
         exit(1);
     }
-    instance.gpuInstance = gpuInstance;
-
 
     // Get compute instance profile
     nvmlComputeInstanceProfileInfo_t ci_info;
@@ -156,6 +199,7 @@ void create_instance(nvmlDevice_t device, Instance & instance){
             LOG_ERROR("Failed getting compute instance ID: " + string(nvmlErrorString(result)));
             exit(1);
     }
+
     // Create compute instance
     nvmlComputeInstance_t computeInstance;
     result =  nvmlGpuInstanceCreateComputeInstance (gpuInstance, ci_info.id, &computeInstance );
@@ -163,8 +207,15 @@ void create_instance(nvmlDevice_t device, Instance & instance){
             LOG_ERROR("Failed creating compute instance: " + string(nvmlErrorString(result)));
             exit(1);
     }
-    instance.computeInstance = computeInstance;
+
+    string uuid = get_instance_uuid(device, gpuInstance);
+
+    // Construct the instance object
+    Instance instance(start, size, gpuInstance, computeInstance, uuid);
+
     cout << "INFO: " << instance << " has been created\n";
+
+    return instance;
 }
 
 

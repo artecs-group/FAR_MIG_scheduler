@@ -201,30 +201,6 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/mig_scheduler.exe.dir/build.make CMakeFiles/mig_scheduler.exe.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
-src/profiler.o: src/profiler.cpp.o
-.PHONY : src/profiler.o
-
-# target to build an object file
-src/profiler.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/mig_scheduler.exe.dir/build.make CMakeFiles/mig_scheduler.exe.dir/src/profiler.cpp.o
-.PHONY : src/profiler.cpp.o
-
-src/profiler.i: src/profiler.cpp.i
-.PHONY : src/profiler.i
-
-# target to preprocess a source file
-src/profiler.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/mig_scheduler.exe.dir/build.make CMakeFiles/mig_scheduler.exe.dir/src/profiler.cpp.i
-.PHONY : src/profiler.cpp.i
-
-src/profiler.s: src/profiler.cpp.s
-.PHONY : src/profiler.s
-
-# target to generate assembly for a file
-src/profiler.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/mig_scheduler.exe.dir/build.make CMakeFiles/mig_scheduler.exe.dir/src/profiler.cpp.s
-.PHONY : src/profiler.cpp.s
-
 src/scheduler.o: src/scheduler.cpp.o
 .PHONY : src/scheduler.o
 
@@ -249,29 +225,29 @@ src/scheduler.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/mig_scheduler.exe.dir/build.make CMakeFiles/mig_scheduler.exe.dir/src/scheduler.cpp.s
 .PHONY : src/scheduler.cpp.s
 
-src/utils.o: src/utils.cpp.o
-.PHONY : src/utils.o
+src/tasks.o: src/tasks.cpp.o
+.PHONY : src/tasks.o
 
 # target to build an object file
-src/utils.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/mig_scheduler.exe.dir/build.make CMakeFiles/mig_scheduler.exe.dir/src/utils.cpp.o
-.PHONY : src/utils.cpp.o
+src/tasks.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mig_scheduler.exe.dir/build.make CMakeFiles/mig_scheduler.exe.dir/src/tasks.cpp.o
+.PHONY : src/tasks.cpp.o
 
-src/utils.i: src/utils.cpp.i
-.PHONY : src/utils.i
+src/tasks.i: src/tasks.cpp.i
+.PHONY : src/tasks.i
 
 # target to preprocess a source file
-src/utils.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/mig_scheduler.exe.dir/build.make CMakeFiles/mig_scheduler.exe.dir/src/utils.cpp.i
-.PHONY : src/utils.cpp.i
+src/tasks.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mig_scheduler.exe.dir/build.make CMakeFiles/mig_scheduler.exe.dir/src/tasks.cpp.i
+.PHONY : src/tasks.cpp.i
 
-src/utils.s: src/utils.cpp.s
-.PHONY : src/utils.s
+src/tasks.s: src/tasks.cpp.s
+.PHONY : src/tasks.s
 
 # target to generate assembly for a file
-src/utils.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/mig_scheduler.exe.dir/build.make CMakeFiles/mig_scheduler.exe.dir/src/utils.cpp.s
-.PHONY : src/utils.cpp.s
+src/tasks.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mig_scheduler.exe.dir/build.make CMakeFiles/mig_scheduler.exe.dir/src/tasks.cpp.s
+.PHONY : src/tasks.cpp.s
 
 # Help Target
 help:
@@ -291,15 +267,12 @@ help:
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
-	@echo "... src/profiler.o"
-	@echo "... src/profiler.i"
-	@echo "... src/profiler.s"
 	@echo "... src/scheduler.o"
 	@echo "... src/scheduler.i"
 	@echo "... src/scheduler.s"
-	@echo "... src/utils.o"
-	@echo "... src/utils.i"
-	@echo "... src/utils.s"
+	@echo "... src/tasks.o"
+	@echo "... src/tasks.i"
+	@echo "... src/tasks.s"
 .PHONY : help
 
 

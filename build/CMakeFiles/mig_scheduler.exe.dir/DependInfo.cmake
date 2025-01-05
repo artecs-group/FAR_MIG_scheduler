@@ -11,9 +11,8 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/jorvil01/FAR_MIG_scheduler/src/GPU_config.cpp" "CMakeFiles/mig_scheduler.exe.dir/src/GPU_config.cpp.o" "gcc" "CMakeFiles/mig_scheduler.exe.dir/src/GPU_config.cpp.o.d"
   "/home/jorvil01/FAR_MIG_scheduler/src/MIG_manager.cpp" "CMakeFiles/mig_scheduler.exe.dir/src/MIG_manager.cpp.o" "gcc" "CMakeFiles/mig_scheduler.exe.dir/src/MIG_manager.cpp.o.d"
   "/home/jorvil01/FAR_MIG_scheduler/src/main.cpp" "CMakeFiles/mig_scheduler.exe.dir/src/main.cpp.o" "gcc" "CMakeFiles/mig_scheduler.exe.dir/src/main.cpp.o.d"
-  "/home/jorvil01/FAR_MIG_scheduler/src/profiler.cpp" "CMakeFiles/mig_scheduler.exe.dir/src/profiler.cpp.o" "gcc" "CMakeFiles/mig_scheduler.exe.dir/src/profiler.cpp.o.d"
   "/home/jorvil01/FAR_MIG_scheduler/src/scheduler.cpp" "CMakeFiles/mig_scheduler.exe.dir/src/scheduler.cpp.o" "gcc" "CMakeFiles/mig_scheduler.exe.dir/src/scheduler.cpp.o.d"
-  "/home/jorvil01/FAR_MIG_scheduler/src/utils.cpp" "CMakeFiles/mig_scheduler.exe.dir/src/utils.cpp.o" "gcc" "CMakeFiles/mig_scheduler.exe.dir/src/utils.cpp.o.d"
+  "/home/jorvil01/FAR_MIG_scheduler/src/tasks.cpp" "CMakeFiles/mig_scheduler.exe.dir/src/tasks.cpp.o" "gcc" "CMakeFiles/mig_scheduler.exe.dir/src/tasks.cpp.o.d"
   )
 
 # Targets to which this target links.
