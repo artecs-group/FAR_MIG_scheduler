@@ -1,5 +1,5 @@
-#ifndef UTILS_H
-#define UTILS_H
+#ifndef LOGGING_H
+#define LOGGING_H
 
 #include <iostream>
 
@@ -9,4 +9,4 @@ using namespace std;
 #define LOG_INFO(msg) (cout << "INFO: " << msg << '\n')
 #define LOG_ERROR(msg) (cerr << "ERROR: " << msg << " (File: " << __FILE__ << ", Line: " << __LINE__ << ")\n")
 
-#endif
+#endif // LOGGING_H

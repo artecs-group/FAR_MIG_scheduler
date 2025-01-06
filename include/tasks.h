@@ -12,10 +12,8 @@ using namespace std;
 struct Task {
 
     string name; // Name of the task
-
     string parent_path; // Path to the script directory
     string script_name; // Name of the script
-
 
     unordered_map<int, double> exec_times; // Execution times profiled for the kernel
 
@@ -25,9 +23,10 @@ struct Task {
 
     bool execute(Instance const& instance, bool background);
     void profile_times(nvmlDevice_t device);
+
 };
 
 vector<Task> get_tasks(const string & kernels_path);
-
+void profile_tasks(vector<Task> & tasks, nvmlDevice_t device);
 
 #endif // TASKS_H

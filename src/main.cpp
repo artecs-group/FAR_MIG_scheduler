@@ -32,17 +32,12 @@ int main(int argc, char* argv[]){
      // Enable MIG
      MIG_enable(device, gpu_number);
 
+     
      // Profile tasks to get their execution times for each instance size
-     for (auto & task: tasks){
-          task.profile_times(device);
-     }
+     profile_tasks(tasks, device);
 
      //Disable MIG
      MIG_disable(device, gpu_number);
-
-
-
-
 
      return 0;
 }
