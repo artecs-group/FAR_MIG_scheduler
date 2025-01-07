@@ -16,16 +16,16 @@ struct TreeNode{
     double end; // End time of the node execution
     TreeNode* parent; // Parent of this node
 
-    TreeNode(int start, int size, TreeNode* parent) : start(start), size(size), children(children), parent(parent) {
+    TreeNode(int start, int size, TreeNode* parent) : start(start), size(size), parent(parent) {
         tasks = {};
         end = 0;
     }
 
-    ~TreeNode() { // Destructor to delete the children
+   /* ~TreeNode() { // Destructor to delete the children
         for (TreeNode* child: children){
             if(child != nullptr) delete child;
         }
-    }
+    }*/
     
 };
 
