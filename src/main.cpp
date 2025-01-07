@@ -1,5 +1,5 @@
 #include <iostream>
-#include "GPU_config.h"
+#include "GPU_info.h"
 #include "MIG_manager.h"
 #include "tasks.h"
 #include "logging.h"
@@ -20,7 +20,7 @@ int main(int argc, char* argv[]){
      string gpu_name = get_gpu_name(device);
 
 
-     initialize_GPU_config(gpu_name);
+     initialize_GPU_info(gpu_name);
 
      // Validate the scripts for scheduling
      vector<Task> tasks = get_tasks(kernels_filename);
@@ -31,8 +31,10 @@ int main(int argc, char* argv[]){
 
      // Enable MIG
      MIG_enable(device, gpu_number);
-
      
+     // Profile instance creation and destruction times
+     profile_reconfig_times(device);
+
      // Profile tasks to get their execution times for each instance size
      profile_tasks(tasks, device);
 

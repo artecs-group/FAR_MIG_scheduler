@@ -1,5 +1,5 @@
 #include "MIG_manager.h"
-#include "GPU_config.h"
+#include "GPU_info.h"
 #include "logging.h"
 #include <iostream>
 #include <cuda_runtime.h>
@@ -65,7 +65,7 @@ static void destroy_all_compute_instances(nvmlGpuInstance_t gpu_instance, unsign
         exit(1);
     }
 
-    nvmlComputeInstance_t * compute_instances = (nvmlComputeInstance_t *) malloc(sizeof(nvmlComputeInstance_t) * global_GPU_config->num_slices);
+    nvmlComputeInstance_t * compute_instances = (nvmlComputeInstance_t *) malloc(sizeof(nvmlComputeInstance_t) * global_GPU_info->num_slices);
     unsigned int compute_count;
     result = nvmlGpuInstanceGetComputeInstances(gpu_instance, ci_info.id, compute_instances, &compute_count);
     if(result != NVML_SUCCESS){
@@ -85,9 +85,9 @@ static void destroy_all_compute_instances(nvmlGpuInstance_t gpu_instance, unsign
 
 void destroy_all_instances(nvmlDevice_t device){
     int destroyed_count = 0;
-    nvmlGpuInstance_t * gpu_instances = (nvmlGpuInstance_t *) malloc(sizeof(nvmlGpuInstance_t) * global_GPU_config->num_slices);
+    nvmlGpuInstance_t * gpu_instances = (nvmlGpuInstance_t *) malloc(sizeof(nvmlGpuInstance_t) * global_GPU_info->num_slices);
     
-    for (auto const& gpu_instance_profile: global_GPU_config->valid_gi_profiles){
+    for (auto const& gpu_instance_profile: global_GPU_info->valid_gi_profiles){
         int instance_size = gpu_instance_profile.first;
         unsigned int profile = gpu_instance_profile.second;
         nvmlGpuInstanceProfileInfo_t info;
@@ -103,7 +103,7 @@ void destroy_all_instances(nvmlDevice_t device){
             exit(1);
         }
         for (int i = 0; i < count; i++){
-            unsigned int ci_profile = global_GPU_config->valid_ci_profiles.at(instance_size);
+            unsigned int ci_profile = global_GPU_info->valid_ci_profiles.at(instance_size);
             destroy_all_compute_instances(gpu_instances[i], ci_profile);
 
             result = nvmlGpuInstanceDestroy(gpu_instances[i]);
@@ -178,7 +178,7 @@ Instance create_instance(nvmlDevice_t device, size_t start, size_t size){
 
     // Get GPU instance profile
     nvmlGpuInstanceProfileInfo_t gi_info;
-    result = nvmlDeviceGetGpuInstanceProfileInfo (device, global_GPU_config->valid_gi_profiles.at(placement.size), &gi_info);
+    result = nvmlDeviceGetGpuInstanceProfileInfo (device, global_GPU_info->valid_gi_profiles.at(placement.size), &gi_info);
     if(NVML_SUCCESS != result){
             LOG_ERROR("Failed getting gpu instance ID: " + string(nvmlErrorString(result)));
             exit(1);
@@ -194,7 +194,7 @@ Instance create_instance(nvmlDevice_t device, size_t start, size_t size){
     // Get compute instance profile
     nvmlComputeInstanceProfileInfo_t ci_info;
     
-    result = nvmlGpuInstanceGetComputeInstanceProfileInfo (gpuInstance, global_GPU_config->valid_ci_profiles.at(placement.size), NVML_COMPUTE_INSTANCE_ENGINE_PROFILE_SHARED, &ci_info );
+    result = nvmlGpuInstanceGetComputeInstanceProfileInfo (gpuInstance, global_GPU_info->valid_ci_profiles.at(placement.size), NVML_COMPUTE_INSTANCE_ENGINE_PROFILE_SHARED, &ci_info );
     if(NVML_SUCCESS != result){
             LOG_ERROR("Failed getting compute instance ID: " + string(nvmlErrorString(result)));
             exit(1);

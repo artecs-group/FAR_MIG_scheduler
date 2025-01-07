@@ -1,5 +1,5 @@
 #include "tasks.h"
-#include "GPU_config.h"
+#include "GPU_info.h"
 #include "logging.h"
 #include <fstream>
 #include <iostream>
@@ -56,7 +56,7 @@ void Task::profile_times(nvmlDevice_t device){
     destroy_all_instances(device);
     struct timeval init_time, end_time;
     // For each possible instance size, execute every task
-    for (int instance_size: global_GPU_config->valid_instance_sizes){
+    for (int instance_size: global_GPU_info->valid_instance_sizes){
         // Create the instance
         Instance instance = create_instance(device, 0, instance_size);
         try{

@@ -21,17 +21,18 @@ struct TreeNode{
         end = 0;
     }
 
-   /* ~TreeNode() { // Destructor to delete the children
+   ~TreeNode() { // Destructor to delete the children
         for (TreeNode* child: children){
             if(child != nullptr) delete child;
         }
-    }*/
+    } 
     
 };
 
 // Phase 1 of FAR's algorithm
 vector<Allocation> get_allocations_family(vector<Task> & tasks);
 
-
+// Phase 2 of FAR's algorithm
+TreeNode repartitioning_schedule(Allocation const& allocation);
 
 #endif // SCHEDULER_H

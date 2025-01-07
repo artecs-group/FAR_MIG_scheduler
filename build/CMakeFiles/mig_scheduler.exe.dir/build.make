@@ -69,19 +69,19 @@ include CMakeFiles/mig_scheduler.exe.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/mig_scheduler.exe.dir/flags.make
 
-CMakeFiles/mig_scheduler.exe.dir/src/GPU_config.cpp.o: CMakeFiles/mig_scheduler.exe.dir/flags.make
-CMakeFiles/mig_scheduler.exe.dir/src/GPU_config.cpp.o: /home/jorvil01/FAR_MIG_scheduler/src/GPU_config.cpp
-CMakeFiles/mig_scheduler.exe.dir/src/GPU_config.cpp.o: CMakeFiles/mig_scheduler.exe.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jorvil01/FAR_MIG_scheduler/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/mig_scheduler.exe.dir/src/GPU_config.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/mig_scheduler.exe.dir/src/GPU_config.cpp.o -MF CMakeFiles/mig_scheduler.exe.dir/src/GPU_config.cpp.o.d -o CMakeFiles/mig_scheduler.exe.dir/src/GPU_config.cpp.o -c /home/jorvil01/FAR_MIG_scheduler/src/GPU_config.cpp
+CMakeFiles/mig_scheduler.exe.dir/src/GPU_info.cpp.o: CMakeFiles/mig_scheduler.exe.dir/flags.make
+CMakeFiles/mig_scheduler.exe.dir/src/GPU_info.cpp.o: /home/jorvil01/FAR_MIG_scheduler/src/GPU_info.cpp
+CMakeFiles/mig_scheduler.exe.dir/src/GPU_info.cpp.o: CMakeFiles/mig_scheduler.exe.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jorvil01/FAR_MIG_scheduler/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/mig_scheduler.exe.dir/src/GPU_info.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/mig_scheduler.exe.dir/src/GPU_info.cpp.o -MF CMakeFiles/mig_scheduler.exe.dir/src/GPU_info.cpp.o.d -o CMakeFiles/mig_scheduler.exe.dir/src/GPU_info.cpp.o -c /home/jorvil01/FAR_MIG_scheduler/src/GPU_info.cpp
 
-CMakeFiles/mig_scheduler.exe.dir/src/GPU_config.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/mig_scheduler.exe.dir/src/GPU_config.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jorvil01/FAR_MIG_scheduler/src/GPU_config.cpp > CMakeFiles/mig_scheduler.exe.dir/src/GPU_config.cpp.i
+CMakeFiles/mig_scheduler.exe.dir/src/GPU_info.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/mig_scheduler.exe.dir/src/GPU_info.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jorvil01/FAR_MIG_scheduler/src/GPU_info.cpp > CMakeFiles/mig_scheduler.exe.dir/src/GPU_info.cpp.i
 
-CMakeFiles/mig_scheduler.exe.dir/src/GPU_config.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/mig_scheduler.exe.dir/src/GPU_config.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jorvil01/FAR_MIG_scheduler/src/GPU_config.cpp -o CMakeFiles/mig_scheduler.exe.dir/src/GPU_config.cpp.s
+CMakeFiles/mig_scheduler.exe.dir/src/GPU_info.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/mig_scheduler.exe.dir/src/GPU_info.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jorvil01/FAR_MIG_scheduler/src/GPU_info.cpp -o CMakeFiles/mig_scheduler.exe.dir/src/GPU_info.cpp.s
 
 CMakeFiles/mig_scheduler.exe.dir/src/MIG_manager.cpp.o: CMakeFiles/mig_scheduler.exe.dir/flags.make
 CMakeFiles/mig_scheduler.exe.dir/src/MIG_manager.cpp.o: /home/jorvil01/FAR_MIG_scheduler/src/MIG_manager.cpp
@@ -141,7 +141,7 @@ CMakeFiles/mig_scheduler.exe.dir/src/tasks.cpp.s: cmake_force
 
 # Object files for target mig_scheduler.exe
 mig_scheduler_exe_OBJECTS = \
-"CMakeFiles/mig_scheduler.exe.dir/src/GPU_config.cpp.o" \
+"CMakeFiles/mig_scheduler.exe.dir/src/GPU_info.cpp.o" \
 "CMakeFiles/mig_scheduler.exe.dir/src/MIG_manager.cpp.o" \
 "CMakeFiles/mig_scheduler.exe.dir/src/main.cpp.o" \
 "CMakeFiles/mig_scheduler.exe.dir/src/scheduler.cpp.o" \
@@ -150,7 +150,7 @@ mig_scheduler_exe_OBJECTS = \
 # External object files for target mig_scheduler.exe
 mig_scheduler_exe_EXTERNAL_OBJECTS =
 
-mig_scheduler.exe: CMakeFiles/mig_scheduler.exe.dir/src/GPU_config.cpp.o
+mig_scheduler.exe: CMakeFiles/mig_scheduler.exe.dir/src/GPU_info.cpp.o
 mig_scheduler.exe: CMakeFiles/mig_scheduler.exe.dir/src/MIG_manager.cpp.o
 mig_scheduler.exe: CMakeFiles/mig_scheduler.exe.dir/src/main.cpp.o
 mig_scheduler.exe: CMakeFiles/mig_scheduler.exe.dir/src/scheduler.cpp.o
