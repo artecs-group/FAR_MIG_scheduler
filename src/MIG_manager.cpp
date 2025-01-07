@@ -54,7 +54,7 @@ void MIG_disable(nvmlDevice_t device, int gpu_number){
     if (result != NVML_SUCCESS) {
         LOG_ERROR("Failed to deactivate MIG: " + string(nvmlErrorString(result)));
     }
-    LOG_INFO("Ok! MIG has been deactivated");
+    LOG_INFO("MIG has been deactivated");
 }
 
 static void destroy_all_compute_instances(nvmlGpuInstance_t gpu_instance, unsigned int ci_profile){

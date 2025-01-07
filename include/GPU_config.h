@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include <unordered_map>
+#include "scheduler.h"
 
 using namespace std;
 
@@ -15,6 +16,7 @@ struct GPUConfig {
     unordered_map<int, unsigned int> valid_gi_profiles;   // Valid profiles for the GPU instances
     unordered_map<int, unsigned int> valid_ci_profiles;   // Valid profiles for the compute instances
     int num_slices;                  // Total number of slices
+    TreeNode root;                  // Root of the GPU repartition tree
 };
 
 // Declaration of the global GPU configuration

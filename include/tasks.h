@@ -1,7 +1,7 @@
 #ifndef TASKS_H
 #define TASKS_H
 
-#include "types.h"
+#include "MIG_manager.h"
 #include <vector>
 #include <string>
 #include <unordered_map>

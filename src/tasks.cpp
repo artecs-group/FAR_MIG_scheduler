@@ -1,6 +1,5 @@
 #include "tasks.h"
 #include "GPU_config.h"
-#include "MIG_manager.h"
 #include "logging.h"
 #include <fstream>
 #include <iostream>

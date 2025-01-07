@@ -3,10 +3,10 @@
 #include "MIG_manager.h"
 #include "tasks.h"
 #include "logging.h"
+#include "scheduler.h"
 using namespace std;
 
 int main(int argc, char* argv[]){
-
      if (argc != 3){
           cerr << "Usage: " << argv[0] << " <gpu_number> <path to kernels filelist>" << endl;
           return 1;
@@ -35,6 +35,19 @@ int main(int argc, char* argv[]){
      
      // Profile tasks to get their execution times for each instance size
      profile_tasks(tasks, device);
+
+     // Get the allocations family
+     vector<Allocation> alloc_family = get_allocations_family(tasks);
+     cout << "Allocations family: " << endl;
+     for (auto const& alloc: alloc_family){
+          for (auto const& [size, tasks]: alloc){
+               cout << "Size: " << size << " Tasks: ";
+               for (auto const& task: tasks){
+                    cout << task->name << " ";
+               }
+               cout << endl;
+          }
+     }
 
      //Disable MIG
      MIG_disable(device, gpu_number);
