@@ -19,13 +19,11 @@ struct TreeNode{
 
     TreeNode(int start, int size, weak_ptr<TreeNode> parent = weak_ptr<TreeNode>());
 
-    void show_tree(); // Show the complete current tree in detail
+    void show_tree() const; // Show the complete current tree in detail
+    double get_makespan() const; // Get the makespan of the tree
+
 };
 
-// Phase 1 of FAR's algorithm
-vector<Allocation> get_allocations_family(vector<Task> & tasks);
-
-// Phase 2 of FAR's algorithm
-shared_ptr<TreeNode> repartitioning_schedule(Allocation const& allocation);
+TreeNode FAR_schedule_tasks(vector<Task> & tasks); // FAR's algorithm
 
 #endif // SCHEDULER_H

@@ -9,7 +9,7 @@
 using namespace std;
 
 // Information for A30
-GPUInfo A30_config = {
+const GPUInfo A30_config = {
     "A30",
     {1, 2, 4},   // Valid sizes for the instances
 
@@ -26,7 +26,7 @@ GPUInfo A30_config = {
 };
 
 // Information for A100/H100
-GPUInfo A100_H100_config = {
+const GPUInfo A100_H100_config = {
     "A100/H100",
     {1, 2, 3, 4, 7},  // Valid sizes for the instances
 
@@ -46,7 +46,7 @@ GPUInfo A100_H100_config = {
 };
 
 // Global GPU info
-GPUInfo* global_GPU_info = nullptr;
+const GPUInfo* global_GPU_info = nullptr;
 
 
 void initialize_GPU_info(const string& gpu_name){

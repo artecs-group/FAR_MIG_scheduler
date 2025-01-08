@@ -12,7 +12,6 @@ Task::Task(string const& name, string const& parent_path, string const& script_n
     exec_times = {};
 }
 
-
 static string exec_command(Task const& task, Instance const& instance, bool background){
     // Move to task directory
     string command = "cd " + task.parent_path;
@@ -40,7 +39,7 @@ static string exec_command(Task const& task, Instance const& instance, bool back
 } 
 
 
-bool Task::execute(Instance const& instance, bool background){
+bool Task::execute(Instance const& instance, bool background) const{
     // Execute the task in the given instance
     string command = exec_command(*this, instance, background);
     int status = system(command.c_str());

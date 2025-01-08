@@ -7,7 +7,12 @@
 #include <queue>
 #include <functional>
 
+// Create tree structure for the algorithm
 static shared_ptr<TreeNode> create_repartition_tree();
+// Phase 1 of FAR's algorithm
+static vector<Allocation> get_allocations_family(vector<Task> & tasks);
+// Phase 2 of FAR's algorithm
+static shared_ptr<TreeNode> repartitioning_schedule(Allocation const& allocation);
 
 TreeNode::TreeNode(int start, int size, weak_ptr<TreeNode> parent) : start(start), size(size), parent(parent) {
     tasks = {};
@@ -46,9 +51,27 @@ static void search_longest_task(Allocation const& allocation, Task* & longest_ta
             }
         }
     }
-} 
+}
 
-vector<Allocation> get_allocations_family(vector<Task> & tasks){
+
+TreeNode FAR_schedule_tasks(vector<Task> & tasks){
+    vector<Allocation> allocations = get_allocations_family(tasks);
+    double min_makespan = DBL_MAX;
+    shared_ptr<TreeNode> best_tree;
+    for (auto const& allocation: allocations){
+        shared_ptr<TreeNode> tree = repartitioning_schedule(allocation);
+        (*tree).show_tree();
+        double makespan = tree->get_makespan();
+        cout << "Tree makespan: " << makespan << endl;
+        if (makespan < min_makespan){
+            min_makespan = makespan;
+            best_tree = tree;
+        }
+    }
+    return *best_tree;
+}
+
+static vector<Allocation> get_allocations_family(vector<Task> & tasks){
     vector<Allocation> allocations;
     
     // Get empty first allocation
@@ -88,7 +111,7 @@ vector<Allocation> get_allocations_family(vector<Task> & tasks){
 }
 
 
-shared_ptr<TreeNode> repartitioning_schedule(Allocation const& allocation){
+static shared_ptr<TreeNode> repartitioning_schedule(Allocation const& allocation){
     // Create a map with the tasks decreasingly ordered by time
     unordered_map<unsigned int, vector<Task*>> tasks_by_size;
     for (auto const& [size, tasks]: allocation){
@@ -230,13 +253,31 @@ static shared_ptr<TreeNode> create_repartition_tree(){
     }
 }
 
-void TreeNode::show_tree(){
-    cout << "Node(start=" << start << ", size=" << size << ", end=" << end << ", tasks=[";
-    for (auto const& task: tasks){
-        cout << task->name << " ";
+void TreeNode::show_tree() const{
+    cout << "======================================" << endl;
+    cout << "Repartitioning tree:" << endl;
+
+    function<void(const TreeNode &, int)> show_node = [&](const TreeNode & node, int level){
+        for (int i = 0; i < level; i++){
+            cout << "--";
+        }
+        cout << "Node(start=" << node.start << ", size=" << node.size << ", end=" << node.end << ", tasks=[";
+        for (auto const& task: node.tasks){
+            cout << task->name << " ";
+        }
+        cout << "])" << endl;
+        for (auto const& child: node.children){
+            show_node(*child, level + 1);
+        }
+    };
+
+    show_node(*this, 0);
+}
+
+double TreeNode::get_makespan() const{
+    double makespan = this->end;
+    for (auto child: this->children){
+        makespan = max(makespan, child->get_makespan());
     }
-    cout << "])" << endl;
-    for (auto const& child: children){
-        child->show_tree();
-    }
+    return makespan;
 }

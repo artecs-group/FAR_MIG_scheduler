@@ -38,34 +38,12 @@ int main(int argc, char* argv[]){
      profile_reconfig_times(device);
 
      // Profile tasks to get their execution times for each instance size
-     // profile_tasks(tasks, device);
-     for(auto & task: tasks){
-          task.exec_times = {
-               {1, 1},
-               {2, 2},
-               {4, 4}
-          };
-     }
+     profile_tasks(tasks, device);
 
      // Get the allocations family
-     vector<Allocation> alloc_family = get_allocations_family(tasks);
-     cout << "Allocations family: " << endl;
-     for (auto const& alloc: alloc_family){
-          for (auto const& [size, tasks]: alloc){
-               cout << "Size: " << size << " Tasks: ";
-               for (auto const& task: tasks){
-                    cout << task->name << " ";
-               }
-               cout << endl;
-          }
-     }
+     TreeNode tree_schedule = FAR_schedule_tasks(tasks);
      
-     for (auto const& alloc: alloc_family){
-          shared_ptr<TreeNode> tree = repartitioning_schedule(alloc);
-          cout << "============================" << endl;
-          (*tree).show_tree();
-          cout << "============================" << endl;
-     }
+     
 
      //Disable MIG
      MIG_disable(device, gpu_number);
