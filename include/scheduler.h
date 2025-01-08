@@ -17,17 +17,9 @@ struct TreeNode{
     double end; // End time of the node execution
     weak_ptr<TreeNode> parent; // Parent of this node
 
-    TreeNode(int start, int size, weak_ptr<TreeNode> parent = weak_ptr<TreeNode>()) : start(start), size(size), parent(parent) {
-        tasks = {};
-        end = 0;
-    }
+    TreeNode(int start, int size, weak_ptr<TreeNode> parent = weak_ptr<TreeNode>());
 
-    void add_child(shared_ptr<TreeNode> child) {
-        children.push_back(child);
-    }
-
-    void show_tree();
-    
+    void show_tree(); // Show the complete current tree in detail
 };
 
 // Phase 1 of FAR's algorithm

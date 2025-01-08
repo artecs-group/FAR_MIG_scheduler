@@ -7,6 +7,17 @@
 
 using namespace std;
 
+Instance::Instance(size_t start, size_t size, nvmlGpuInstance_t gpuInstance, nvmlComputeInstance_t computeInstance, string uuid) : start(start), size(size), gpuInstance(gpuInstance), computeInstance(computeInstance), uuid(uuid) {}
+
+bool Instance::operator==(const Instance& other) const{
+    return start == other.start && size == other.size;
+}
+
+ostream& operator<<(ostream& os, const Instance& instance){
+    os << "Instance(start=" << instance.start << ", size=" << instance.size << ")";
+    return os;
+}
+
 string get_gpu_name(nvmlDevice_t device){
    // Obtener el nombre de la GPU
    char name[NVML_DEVICE_NAME_BUFFER_SIZE];

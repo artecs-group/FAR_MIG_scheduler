@@ -1,6 +1,6 @@
 #include "GPU_info.h"
 #include "MIG_manager.h"
-#include "tasks.h"
+#include "utils.h"
 #include "logging.h"
 #include "scheduler.h"
 using namespace std;

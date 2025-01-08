@@ -13,17 +13,10 @@ struct Instance {
     nvmlComputeInstance_t computeInstance;
     string uuid;
 
-    Instance(size_t start, size_t size, nvmlGpuInstance_t gpuInstance, nvmlComputeInstance_t computeInstance, string uuid) : start(start), size(size), gpuInstance(gpuInstance), computeInstance(computeInstance), uuid(uuid) {}
-
-    bool operator==(const Instance& other) const {
-        return start == other.start && size == other.size;
-    }
-
-    // Printable instances
-    friend ostream& operator<<(ostream& os, const Instance& instance) {
-        os << "Instance(start=" << instance.start << ", size=" << instance.size << ")";
-        return os;
-    }
+    Instance(size_t start, size_t size, nvmlGpuInstance_t gpuInstance, nvmlComputeInstance_t computeInstance, string uuid);
+    
+    bool operator==(const Instance& other) const; // Comparable instances 
+    friend ostream& operator<<(ostream& os, const Instance& instance);  // Printable instances
 };
 
 void init_nvml();

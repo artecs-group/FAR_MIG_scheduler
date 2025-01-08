@@ -9,6 +9,11 @@
 
 static shared_ptr<TreeNode> create_repartition_tree();
 
+TreeNode::TreeNode(int start, int size, weak_ptr<TreeNode> parent) : start(start), size(size), parent(parent) {
+    tasks = {};
+    end = 0;
+}
+
 static int min_area_size(Task const& task, int min_instance_size = -1){
     int min_size = -1;
     double min_area = DBL_MAX;
