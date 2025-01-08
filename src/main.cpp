@@ -1,4 +1,3 @@
-#include <iostream>
 #include "GPU_info.h"
 #include "MIG_manager.h"
 #include "tasks.h"
@@ -31,12 +30,22 @@ int main(int argc, char* argv[]){
 
      // Enable MIG
      MIG_enable(device, gpu_number);
+
+     // Destroy all instances to start from scratch
+     destroy_all_instances(device);
      
      // Profile instance creation and destruction times
      profile_reconfig_times(device);
 
      // Profile tasks to get their execution times for each instance size
-     profile_tasks(tasks, device);
+     // profile_tasks(tasks, device);
+     for(auto & task: tasks){
+          task.exec_times = {
+               {1, 1},
+               {2, 2},
+               {4, 4}
+          };
+     }
 
      // Get the allocations family
      vector<Allocation> alloc_family = get_allocations_family(tasks);
@@ -49,6 +58,13 @@ int main(int argc, char* argv[]){
                }
                cout << endl;
           }
+     }
+     
+     for (auto const& alloc: alloc_family){
+          shared_ptr<TreeNode> tree = repartitioning_schedule(alloc);
+          cout << "============================" << endl;
+          (*tree).show_tree();
+          cout << "============================" << endl;
      }
 
      //Disable MIG

@@ -7,7 +7,7 @@
 #include <queue>
 #include <functional>
 
-static TreeNode create_repartition_tree();
+static shared_ptr<TreeNode> create_repartition_tree();
 
 static int min_area_size(Task const& task, int min_instance_size = -1){
     int min_size = -1;
@@ -83,7 +83,7 @@ vector<Allocation> get_allocations_family(vector<Task> & tasks){
 }
 
 
-TreeNode repartitioning_schedule(Allocation const& allocation){
+shared_ptr<TreeNode> repartitioning_schedule(Allocation const& allocation){
     // Create a map with the tasks decreasingly ordered by time
     unordered_map<unsigned int, vector<Task*>> tasks_by_size;
     for (auto const& [size, tasks]: allocation){
@@ -93,18 +93,17 @@ TreeNode repartitioning_schedule(Allocation const& allocation){
         });
         tasks_by_size[size] = move(tasks_vector);
     }
-
     // Get the root of the repartitioning tree
-    TreeNode root = create_repartition_tree();
+    shared_ptr<TreeNode> root = create_repartition_tree();
 
     // Min-heap of TreeNode pointers opened
-    auto compare_nodes = [](TreeNode* a, TreeNode* b){
+    auto compare_nodes = [](shared_ptr<TreeNode> a, shared_ptr<TreeNode> b){
         return a->end > b->end;
     };
-    priority_queue<TreeNode*, vector<TreeNode*>, decltype(compare_nodes)> heap(compare_nodes);
+    priority_queue<shared_ptr<TreeNode>, vector<shared_ptr<TreeNode>>, decltype(compare_nodes)> heap(compare_nodes);
 
     // Put the root in the heap
-    heap.push(&root);
+    heap.push(root);
 
     // For sequential reconfiguration
     double reconfig_end = 0;
@@ -112,7 +111,7 @@ TreeNode repartitioning_schedule(Allocation const& allocation){
     // While there are nodes opened in the heap
     while(!heap.empty()){
         // Get the node with the smallest end time
-        TreeNode* node = heap.top();
+        auto node = heap.top();
         heap.pop();
 
         // If there are unscheduled task assigned to the node instance size
@@ -147,7 +146,7 @@ TreeNode repartitioning_schedule(Allocation const& allocation){
                 reconfig_end += global_GPU_info->times_destroy[node->size];
             }
             // Create the children instances
-            for (TreeNode* child: node->children){
+            for (auto child: node->children){
                 child->end = node->end;
                 heap.push(child);
             }
@@ -160,19 +159,21 @@ TreeNode repartitioning_schedule(Allocation const& allocation){
 
 
 // Definition of the repartition tree for the corresponding GPU
-static TreeNode create_repartition_tree(){
+static shared_ptr<TreeNode> create_repartition_tree(){
     if (global_GPU_info->name == "A30"){
-        TreeNode root(0, 4, nullptr);
 
-        TreeNode* node_0_2 = new TreeNode(0, 2, &root);
-        TreeNode* node_2_2 = new TreeNode(2, 2, &root);
+        auto root = make_shared<TreeNode>(0, 4);
 
-        TreeNode* node_0_1 = new TreeNode(0, 1, node_0_2);
-        TreeNode* node_1_1 = new TreeNode(1, 1, node_0_2);
-        TreeNode* node_2_1 = new TreeNode(2, 1, node_2_2);
-        TreeNode* node_3_1 = new TreeNode(3, 1, node_2_2);
+        auto node_0_2 = make_shared<TreeNode>(0, 2, root);
+        auto node_2_2 = make_shared<TreeNode>(2, 2, root);
 
-        root.children = {node_0_2, node_2_2};
+        auto node_0_1 = make_shared<TreeNode>(0, 1, node_0_2);
+        auto node_1_1 = make_shared<TreeNode>(1, 1, node_0_2);
+
+        auto node_2_1 = make_shared<TreeNode>(2, 1, node_2_2);
+        auto node_3_1 = make_shared<TreeNode>(3, 1, node_2_2);
+
+        root->children = {node_0_2, node_2_2};
 
         node_0_2->children = {node_0_1, node_1_1};
         node_2_2->children = {node_2_1, node_3_1};
@@ -181,31 +182,32 @@ static TreeNode create_repartition_tree(){
         node_1_1->children = {};
         node_2_1->children = {};
         node_3_1->children = {};
+        
         return root;
     } else if (global_GPU_info->name == "A100/H100"){
-        TreeNode root(0, 7, nullptr);
+        auto root = make_shared<TreeNode>(0, 7);
 
-        TreeNode* node_0_4 = new TreeNode(0, 4, &root);
-        TreeNode* node_4_3 = new TreeNode(4, 3, &root);
+        auto node_0_4 = make_shared<TreeNode>(0, 4, root);
+        auto node_4_3 = make_shared<TreeNode>(4, 3, root);
 
-        TreeNode* node_0_3 = new TreeNode(0, 3, node_0_4);
-        
-        TreeNode* node_0_2 = new TreeNode(0, 2, node_0_3);
-        TreeNode* node_2_2 = new TreeNode(2, 2, node_0_3);
+        auto node_0_3 = make_shared<TreeNode>(0, 3, node_0_4);
 
-        TreeNode* node_0_1 = new TreeNode(0, 1, node_0_2);
-        TreeNode* node_1_1 = new TreeNode(1, 1, node_0_2);
+        auto node_0_2 = make_shared<TreeNode>(0, 2, node_0_3);
+        auto node_2_2 = make_shared<TreeNode>(2, 2, node_0_3);
 
-        TreeNode* node_2_1 = new TreeNode(2, 1, node_2_2);
-        TreeNode* node_3_1 = new TreeNode(3, 1, node_2_2);
+        auto node_0_1 = make_shared<TreeNode>(0, 1, node_0_2);
+        auto node_1_1 = make_shared<TreeNode>(1, 1, node_0_2);
 
-        TreeNode* node_4_2 = new TreeNode(4, 2, node_4_3);
-        TreeNode* node_6_1 = new TreeNode(6, 1, node_4_3);
+        auto node_2_1 = make_shared<TreeNode>(2, 1, node_2_2);
+        auto node_3_1 = make_shared<TreeNode>(3, 1, node_2_2);
 
-        TreeNode* node_4_1 = new TreeNode(4, 1, node_4_2);
-        TreeNode* node_5_1 = new TreeNode(5, 1, node_4_2);
+        auto node_4_2 = make_shared<TreeNode>(4, 2, node_4_3);
+        auto node_6_1 = make_shared<TreeNode>(6, 1, node_4_3);
 
-        root.children = {node_0_4, node_4_3};
+        auto node_4_1 = make_shared<TreeNode>(4, 1, node_4_2);
+        auto node_5_1 = make_shared<TreeNode>(5, 1, node_4_2);
+
+        root->children = {node_0_4, node_4_3};
 
         node_0_4->children = {node_0_3};
         node_4_3->children = {node_4_2, node_6_1};
@@ -220,5 +222,16 @@ static TreeNode create_repartition_tree(){
     else{
         LOG_ERROR("GPU model unknown");
         exit(1);
+    }
+}
+
+void TreeNode::show_tree(){
+    cout << "Node(start=" << start << ", size=" << size << ", end=" << end << ", tasks=[";
+    for (auto const& task: tasks){
+        cout << task->name << " ";
+    }
+    cout << "])" << endl;
+    for (auto const& child: children){
+        child->show_tree();
     }
 }
