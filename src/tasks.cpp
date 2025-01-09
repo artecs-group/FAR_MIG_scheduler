@@ -12,7 +12,7 @@ Task::Task(string const& name, string const& parent_path, string const& script_n
     exec_times = {};
 }
 
-static string exec_command(Task const& task, Instance const& instance, bool background){
+static string exec_command(Task const& task, Instance const& instance){
     // Move to task directory
     string command = "cd " + task.parent_path;
     // Concatenate the command to execute the script
@@ -31,17 +31,13 @@ static string exec_command(Task const& task, Instance const& instance, bool back
     // Return to the original directory
     command += " && cd " + string(currentDirectory);
 
-    // If the task is to be executed in the background, add to the command
-    if (background){
-        command = "(" + command + ") &";
-    }
     return command;
 } 
 
 
-bool Task::execute(Instance const& instance, bool background) const{
+bool Task::execute(Instance const& instance) const{
     // Execute the task in the given instance
-    string command = exec_command(*this, instance, background);
+    string command = exec_command(*this, instance);
     int status = system(command.c_str());
     if (status != 0){
         cout << "ERROR: Task " << this->name << " failed with " << instance << endl;
@@ -61,7 +57,7 @@ void Task::profile_times(nvmlDevice_t device){
         try{
             // Measure and save the execution time
             gettimeofday(&init_time, NULL);
-            this->execute(instance, false);
+            this->execute(instance);
             gettimeofday(&end_time, NULL);
         } catch (runtime_error const& e){
             // If the task failed, set infinite time for it

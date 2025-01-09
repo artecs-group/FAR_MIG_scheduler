@@ -43,7 +43,8 @@ int main(int argc, char* argv[]){
      // Get the allocations family
      TreeNode tree_schedule = FAR_schedule_tasks(tasks);
      
-     
+     // Execute the tasks in the GPU following the tree schedule
+     tree_schedule.execute_tasks(device);
 
      //Disable MIG
      MIG_disable(device, gpu_number);

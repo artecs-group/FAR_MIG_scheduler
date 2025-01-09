@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <queue>
 #include <functional>
+#include <thread>
 
 // Create tree structure for the algorithm
 static shared_ptr<TreeNode> create_repartition_tree();
@@ -62,7 +63,7 @@ TreeNode FAR_schedule_tasks(vector<Task> & tasks){
         shared_ptr<TreeNode> tree = repartitioning_schedule(allocation);
         (*tree).show_tree();
         double makespan = tree->get_makespan();
-        cout << "Tree makespan: " << makespan << endl;
+        cout << "Tree makespan: " << makespan << 's' << endl;
         if (makespan < min_makespan){
             min_makespan = makespan;
             best_tree = tree;
@@ -280,4 +281,26 @@ double TreeNode::get_makespan() const{
         makespan = max(makespan, child->get_makespan());
     }
     return makespan;
+}
+
+void TreeNode::execute_tasks(nvmlDevice_t device) const{
+    // Create the instance, execute the tasks and destroy it if there are tasks in this node
+    if (!this->tasks.empty()){
+        Instance instance = create_instance(device, this->start, this->size);
+        for (auto const& task: this->tasks){
+            task->execute(instance);
+        }
+        destroy_instance(instance);
+    }
+    // Parallel execution of tasks in the children nodes
+    vector<thread> children_threads;
+    for (auto const& child: this->children){
+        children_threads.emplace_back([&child, device]{
+            child->execute_tasks(device);
+        });
+    }
+    // Wait for the children threads to finish
+    for (auto & thread: children_threads){
+        thread.join();
+    }
 }

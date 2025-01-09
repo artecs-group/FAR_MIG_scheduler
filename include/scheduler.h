@@ -15,13 +15,13 @@ struct TreeNode{
     vector<Task*> tasks;// Tasks to execute in this node  
     vector<shared_ptr<TreeNode>> children; // Children of this node
     double end; // End time of the node execution
-    weak_ptr<TreeNode> parent; // Parent of this node
+    weak_ptr<TreeNode> parent; // Parent of this node (needed for the refinement)
 
     TreeNode(int start, int size, weak_ptr<TreeNode> parent = weak_ptr<TreeNode>());
 
     void show_tree() const; // Show the complete current tree in detail
     double get_makespan() const; // Get the makespan of the tree
-
+    void execute_tasks(nvmlDevice_t device) const; // Execute the tasks in the GPU following the tree
 };
 
 TreeNode FAR_schedule_tasks(vector<Task> & tasks); // FAR's algorithm

@@ -19,7 +19,7 @@ struct Task {
 
     Task(string const& name, string const& parent_path, string const& script_name);
 
-    bool execute(Instance const& instance, bool background) const;
+    bool execute(Instance const& instance) const;
     void profile_times(nvmlDevice_t device);
 
 };
