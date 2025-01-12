@@ -68,7 +68,7 @@ void Task::profile_times(nvmlDevice_t device){
         }
         double task_time = (end_time.tv_sec - init_time.tv_sec) + (end_time.tv_usec - init_time.tv_usec) / 1000000.0;
         this->exec_times[instance_size] = task_time;
-        LOG_INFO("Task " + this->name + " profiled with " + to_string(task_time) + " seconds with size " + to_string(instance_size));
+        LOG_INFO("Task " + this->name + " profiled with " + to_string(task_time) + " seconds in size " + to_string(instance_size));
         destroy_instance(instance);
     }
 }

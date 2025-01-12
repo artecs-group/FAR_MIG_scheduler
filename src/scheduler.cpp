@@ -7,6 +7,7 @@
 #include <queue>
 #include <functional>
 #include <thread>
+#include <sys/time.h>
 
 // Create tree structure for the algorithm
 static shared_ptr<TreeNode> create_repartition_tree();
@@ -14,6 +15,8 @@ static shared_ptr<TreeNode> create_repartition_tree();
 static vector<Allocation> get_allocations_family(vector<Task> & tasks);
 // Phase 2 of FAR's algorithm
 static shared_ptr<TreeNode> repartitioning_schedule(Allocation const& allocation);
+// Recursive execution of the task in the tree
+static void recursive_tree_execution(shared_ptr<TreeNode> node, nvmlDevice_t device, int init_time);
 
 TreeNode::TreeNode(int start, int size, weak_ptr<TreeNode> parent) : start(start), size(size), parent(parent) {
     tasks = {};
@@ -283,24 +286,41 @@ double TreeNode::get_makespan() const{
     return makespan;
 }
 
-void TreeNode::execute_tasks(nvmlDevice_t device) const{
+
+static void recursive_tree_execution(TreeNode const& node, nvmlDevice_t device, timeval const& init_time){
     // Create the instance, execute the tasks and destroy it if there are tasks in this node
-    if (!this->tasks.empty()){
-        Instance instance = create_instance(device, this->start, this->size);
-        for (auto const& task: this->tasks){
+    if (!node.tasks.empty()){
+        struct timeval curr_time;
+        Instance instance = create_instance(device, node.start, node.size);
+        for (auto const& task: node.tasks){
+            // Measure the init task execution time
+            gettimeofday(&curr_time, NULL);
+            double curr_time_s = (curr_time.tv_sec - init_time.tv_sec) + (curr_time.tv_usec - init_time.tv_usec) / 1000000.0;
+            LOG_INFO("Start task " + task->name + " at " + to_string(curr_time_s) + "s");
+            // Execute the task
             task->execute(instance);
+            // Measure the end task execution time
+            gettimeofday(&curr_time, NULL);
+            curr_time_s = (curr_time.tv_sec - init_time.tv_sec) + (curr_time.tv_usec - init_time.tv_usec) / 1000000.0;
+            LOG_INFO("End task " + task->name + " at " + to_string(curr_time_s) + "s");
         }
         destroy_instance(instance);
     }
     // Parallel execution of tasks in the children nodes
     vector<thread> children_threads;
-    for (auto const& child: this->children){
-        children_threads.emplace_back([&child, device]{
-            child->execute_tasks(device);
+    for (auto const& child: node.children){
+        children_threads.emplace_back([&child, device, &init_time]{
+            recursive_tree_execution(*child, device, init_time);
         });
     }
     // Wait for the children threads to finish
     for (auto & thread: children_threads){
         thread.join();
     }
+}
+
+void TreeNode::execute_tasks(nvmlDevice_t device) const{
+    struct timeval init_time;
+    gettimeofday(&init_time, NULL);
+    recursive_tree_execution(*this, device, init_time);
 }
