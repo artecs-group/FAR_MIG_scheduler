@@ -1,5 +1,5 @@
 # FAR scheduler for NVIDIA Multi-Instance GPU (MIG)
-This repository contains a C++ implementation of the FAR task scheduler, targeted for NVIDIA GPUs that support physical partitioning via Multi-Instance GPU (MIG). This scheduler is useful for reducing the joint execution time of tasks (makespan) by cleverly co-executing them with MIG. The FAR algorithm used by the scheduler is presented and accompanied by a comprehensive evaluation in [this paper](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4958466). 
+This repository contains a C++ implementation of the FAR task scheduler, targeted for NVIDIA GPUs that support physical partitioning via Multi-Instance GPU (MIG). This scheduler is useful for reducing the joint execution time of tasks (makespan) by cleverly co-executing them with MIG. The FAR algorithm used by the scheduler is presented and accompanied by a comprehensive evaluation in [this paper](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4958466) (preprint for the moment). 
 
 ## Supported GPUs
 Currently, the software explicitly supports the following NVIDIA GPU models:  
@@ -45,14 +45,19 @@ Edit `/FAR_MIG_scheduler/CMakeLists.txt` changing the CUDA_ROOT path to point to
 ```
 set(CUDA_ROOT "/usr/local/cuda" CACHE PATH "CUDA Toolkit root directory")
 ```
-#### 3. Generate build files with CMake
-```
+#### 3. Generate build files with CMake and compile the project
+```bash
 cd build
 cmake ..
 ```
 #### 4. Compile the project
-This will create the executable file ``mig_scheduler.exe''.
-```
+This will create the executable file ``mig_scheduler.exe``.
+```bash
 make
 ```
+## Usage
 
+## Publications
+The paper presenting this scheduler is currently under review. For the moment you can access the [preprint](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4958466).
+## Acknowledgements
+This work is funded by Grant PID2021-126576NB-I00 funded by MCIN/AEI/10.13039/501100011033 and by _"ERDF A way of making Europe"_. 
