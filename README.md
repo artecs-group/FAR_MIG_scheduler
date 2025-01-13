@@ -41,7 +41,7 @@ git clone https://github.com/Jorgitou98/FAR_MIG_scheduler.git
 cd FAR_MIG_scheduler
 ```
 ##### 2. Update the CUDA root directory
-Edit `/FAR_MIG_scheduler/CMakeLists.txt` changing the CUDA_ROOT path to point to your CUDA installation directory.
+Edit the first line of `/FAR_MIG_scheduler/CMakeLists.txt` changing the CUDA_ROOT path to point to your CUDA installation directory.
 ```
 set(CUDA_ROOT "/usr/local/cuda" CACHE PATH "CUDA Toolkit root directory")
 ```
@@ -56,7 +56,82 @@ This will create the executable file ``mig_scheduler.exe``.
 make
 ```
 ## Usage
+To use the software, invoke the `mig_scheduler.exe` executable with the following arguments:
 
+1. **GPU Index**: Specify the index of the GPU where tasks will be executed. You can use the `nvidia-smi` command to list the GPUs available on your system and their respective indices.
+2. **Task File Path**: Provide the path to a file containing information about the tasks to execute. The file should follow this format:
+   - Each line represents a task and contains **three fields separated by spaces**:
+     1. **Task Name**: A unique identifier for the task, used for reporting during execution.
+     2. **Task Directory**: The directory path where is located the script with the task.
+     3. **Task Script**: The name of the script that executes the GPU kernels, defining the task.
+
+#### Example Usage
+To execute a set of GPU tasks from the Rodinia suite (included in this repository), you can use the following command:
+
+```bash
+sudo ./mig_scheduler.exe 0 ../data/input_test/kernels_rodinia.txt
+```
+where:
+- `0` specifies the GPU index (GPU 0 on the system).
+- ../data/input_test/kernels_rodinia.txt is the path to the task file.
+Below is an example content of the `kernels_rodinia.txt` file with 2 tasks:
+```
+gaussian ../kernels/gpu-rodinia/cuda/gaussian run
+pathfinder ../kernels/gpu-rodinia/cuda/pathfinder run
+```
+Each line describes a task. For example the first task is named `gaussian`. It is located in the directory `../kernels/gpu-rodinia/cuda/gaussian`, and the script `run` in that directory is executed to perform the task.
+
+## Execution Report
+During execution, the program provides detailed logging through standard output and error streams. These messages are prefixed with the tags `INFO` for general information and `ERROR` for critical issues. Most errors correspond to unrecoverable exceptions and terminate execution.
+
+#### Example Execution Flow
+1. **Initial GPU Information**<br>
+   At the start of execution, the program reports the provided GPU name and confirms that MIG has been activated:
+   
+   ```
+   INFO: Device has been binded
+   INFO: GPU model: NVIDIA A30 detected
+   INFO: MIG has been activated
+   ```
+2. **Profiling Times**<br>
+   The program profiles reconfiguration times (creation and destruction of MIG instances) and task execution times. Note: Task profiling is currently done by executing tasks but may be replaced with faster profiling methods in future versions (see [the paper](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4958466) for references). Example output:
+   ```
+   INFO: Profiling instance creation and destruction times
+   INFO: Instance(start=0, size=1) has been created
+   INFO: Size 1. Creation time: 0.16s. Destruction time: 0.10s
+   INFO: Instance(start=0, size=2) has been created
+   INFO: Size 2. Creation time: 0.13s. Destruction time: 0.11s
+   ...
+   INFO: Task gaussian profiled with 22.13s in size 1
+   ```
+3. **Repartitioning Tree and Scheduling Plan**<br>
+   The program computes and outputs the repartitioning tree, including the scheduling plan calculated by the algorithm and the estimated execution times. See the paper for more details. Example output:
+   ```
+    ======================================
+    Repartitioning tree:
+    Node(start=0, size=4, end=0, tasks=[])
+    --Node(start=0, size=2, end=18.05, tasks=[pathfinder ])
+    ----Node(start=0, size=1, end=18.05, tasks=[])
+    ----Node(start=1, size=1, end=18.05, tasks=[])
+    --Node(start=2, size=2, end=11.69, tasks=[gaussian ])
+    ----Node(start=2, size=1, end=11.69, tasks=[])
+    ----Node(start=3, size=1, end=11.69, tasks=[])
+    Tree makespan: 18.05s
+    ======================================
+   ```
+4. **Task Execution**<br>
+   Tasks are executed on the GPU according to the scheduling plan, with real-time execution reports for each task, including start and end times:
+   ```
+   INFO: Start task pathfinder at 0.13s
+   INFO: Start task gaussian at 0.25s
+   INFO: End task gaussian at 11.70s
+   INFO: End task pathfinder at 18.06s
+   ```
+5. **MIG Deactivation**<br>
+   After task execution is completed, the program deactivates MIG and logs the corresponding information:
+   ```
+   INFO: MIG has been deactivated
+   ```
 ## Publications
 The paper presenting this scheduler is currently under review. For the moment you can access the [preprint](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4958466).
 ## Acknowledgements
