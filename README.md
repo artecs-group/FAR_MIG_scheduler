@@ -34,12 +34,13 @@ To use this software, ensure the following prerequisites are met:
 
 ## Installation
 To install and build the project, follow these steps:
-#### 1. Clone the repository
-First, clone this repository to your local machine using the following command:
+#### 1. Download the repository
+One option is to clone this repository on your local machine using the following command:
 ```bash
 git clone https://github.com/Jorgitou98/FAR_MIG_scheduler.git
 cd FAR_MIG_scheduler
 ```
+Another option is to download it from one of the generated releases.
 ##### 2. Update the CUDA root directory
 Edit the first line of `/FAR_MIG_scheduler/CMakeLists.txt` changing the CUDA_ROOT path to point to your CUDA installation directory.
 ```
@@ -51,10 +52,24 @@ cd build
 cmake ..
 ```
 #### 4. Compile the project
-This will create the executable file ``mig_scheduler.exe``.
+This will create two executable files: ``mig_scheduler.exe`` and ``mig_scheduler_debug.exe``. Both do the same thing, but the debugging one includes some stop points to make it easier to follow the execution (it stops and asks the user to type some key to continue).
 ```bash
 make
 ```
+## Rodinia test
+The scheduler is ready to be tested with 9 kernels of the Rodinia suite. The code of Rodinia configured for that test is provided as file `gpu-rodinia.tar.gz`, attached in the releases due to its huge size (some IO files are very large). Either of these two options can be used to include it:
+- Option 1:
+  Run the `scripts/prepare_test_data.sh` script which will download the properly configured Rodinia kernels and data, unzip it and delete the compressed file.
+  
+  ```bash
+  cd scripts
+  sh prepare_test_data.sh
+  ```
+- Option 2
+Download the file `gpu-rodinia.tar.gz` from some release of this repository, and unzip its content using some tool like gzip in the path `data/kernels`.
+
+Once this is done, the test can be run by executing the scheduler as indicated in the next section. The path`../input_test/kernels_rodinia.txt` must be pass as task file (second argument of the program).
+
 ## Usage
 To use the software, invoke the `mig_scheduler.exe` executable with the following arguments:
 
@@ -73,7 +88,7 @@ sudo ./mig_scheduler.exe 0 ../data/input_test/kernels_rodinia.txt
 ```
 where:
 - `0` specifies the GPU index (GPU 0 on the system).
-- ../data/input_test/kernels_rodinia.txt is the path to the task file.
+- `../data/input_test/kernels_rodinia.txt` is the path to the task file.
 Below is an example content of the `kernels_rodinia.txt` file with 2 tasks:
 ```
 gaussian ../kernels/gpu-rodinia/cuda/gaussian run
