@@ -1,3 +1,5 @@
+particlefilter ../data/kernels/gpu-rodinia/cuda/particlefilter run
+nw ../data/kernels/gpu-rodinia/cuda/nw run
 lud ../data/kernels/gpu-rodinia/cuda/lud run
 lavaMD ../data/kernels/gpu-rodinia/cuda/lavaMD run
 huffman ../data/kernels/gpu-rodinia/cuda/huffman run

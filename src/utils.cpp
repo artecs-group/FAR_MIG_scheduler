@@ -57,5 +57,11 @@ vector<Task> get_tasks(const string & kernels_filename){
         if (isValid) tasks.push_back(Task(name, parent_path, script_name));
     }
     file.close();
+
+    LOG_INFO("Tasks loaded from " + kernels_filename  + ":");
+    for (auto const& task: tasks){
+        cout << task.name << endl;
+    }
+    cout << endl;
     return tasks;
 }

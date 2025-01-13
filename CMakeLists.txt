@@ -29,8 +29,11 @@ link_directories(${NVML_LIB_PATH})
 # Add the source files
 file(GLOB SOURCES "src/*.cpp")
 
-# Add the executable
+# Add the executable in normal mode
 add_executable(mig_scheduler.exe ${SOURCES})
-
 target_link_libraries(mig_scheduler.exe ${CUDA_LIBRARIES} nvidia-ml)
 
+# Add the executable in debug mode
+add_executable(mig_scheduler_debug.exe ${SOURCES})
+target_link_libraries(mig_scheduler_debug.exe ${CUDA_LIBRARIES} nvidia-ml)
+target_compile_definitions(mig_scheduler_debug.exe PRIVATE DEBUG_MODE)

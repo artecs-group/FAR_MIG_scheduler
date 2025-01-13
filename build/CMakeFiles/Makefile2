@@ -64,6 +64,7 @@ CMAKE_BINARY_DIR = /home/jorvil01/FAR_MIG_scheduler/build
 
 # The main recursive "all" target.
 all: CMakeFiles/mig_scheduler.exe.dir/all
+all: CMakeFiles/mig_scheduler_debug.exe.dir/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
@@ -72,6 +73,7 @@ preinstall:
 
 # The main recursive "clean" target.
 clean: CMakeFiles/mig_scheduler.exe.dir/clean
+clean: CMakeFiles/mig_scheduler_debug.exe.dir/clean
 .PHONY : clean
 
 #=============================================================================
@@ -99,6 +101,32 @@ mig_scheduler.exe: CMakeFiles/mig_scheduler.exe.dir/rule
 CMakeFiles/mig_scheduler.exe.dir/clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/mig_scheduler.exe.dir/build.make CMakeFiles/mig_scheduler.exe.dir/clean
 .PHONY : CMakeFiles/mig_scheduler.exe.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/mig_scheduler_debug.exe.dir
+
+# All Build rule for target.
+CMakeFiles/mig_scheduler_debug.exe.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mig_scheduler_debug.exe.dir/build.make CMakeFiles/mig_scheduler_debug.exe.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mig_scheduler_debug.exe.dir/build.make CMakeFiles/mig_scheduler_debug.exe.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/jorvil01/FAR_MIG_scheduler/build/CMakeFiles --progress-num=8,9,10,11,12,13,14 "Built target mig_scheduler_debug.exe"
+.PHONY : CMakeFiles/mig_scheduler_debug.exe.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/mig_scheduler_debug.exe.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/jorvil01/FAR_MIG_scheduler/build/CMakeFiles 7
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/mig_scheduler_debug.exe.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/jorvil01/FAR_MIG_scheduler/build/CMakeFiles 0
+.PHONY : CMakeFiles/mig_scheduler_debug.exe.dir/rule
+
+# Convenience name for target.
+mig_scheduler_debug.exe: CMakeFiles/mig_scheduler_debug.exe.dir/rule
+.PHONY : mig_scheduler_debug.exe
+
+# clean rule for target.
+CMakeFiles/mig_scheduler_debug.exe.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mig_scheduler_debug.exe.dir/build.make CMakeFiles/mig_scheduler_debug.exe.dir/clean
+.PHONY : CMakeFiles/mig_scheduler_debug.exe.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

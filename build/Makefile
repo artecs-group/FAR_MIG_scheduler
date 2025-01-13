@@ -129,12 +129,26 @@ mig_scheduler.exe/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/mig_scheduler.exe.dir/build.make CMakeFiles/mig_scheduler.exe.dir/build
 .PHONY : mig_scheduler.exe/fast
 
+#=============================================================================
+# Target rules for targets named mig_scheduler_debug.exe
+
+# Build rule for target.
+mig_scheduler_debug.exe: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 mig_scheduler_debug.exe
+.PHONY : mig_scheduler_debug.exe
+
+# fast build rule for target.
+mig_scheduler_debug.exe/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mig_scheduler_debug.exe.dir/build.make CMakeFiles/mig_scheduler_debug.exe.dir/build
+.PHONY : mig_scheduler_debug.exe/fast
+
 src/GPU_info.o: src/GPU_info.cpp.o
 .PHONY : src/GPU_info.o
 
 # target to build an object file
 src/GPU_info.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/mig_scheduler.exe.dir/build.make CMakeFiles/mig_scheduler.exe.dir/src/GPU_info.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mig_scheduler_debug.exe.dir/build.make CMakeFiles/mig_scheduler_debug.exe.dir/src/GPU_info.cpp.o
 .PHONY : src/GPU_info.cpp.o
 
 src/GPU_info.i: src/GPU_info.cpp.i
@@ -143,6 +157,7 @@ src/GPU_info.i: src/GPU_info.cpp.i
 # target to preprocess a source file
 src/GPU_info.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/mig_scheduler.exe.dir/build.make CMakeFiles/mig_scheduler.exe.dir/src/GPU_info.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mig_scheduler_debug.exe.dir/build.make CMakeFiles/mig_scheduler_debug.exe.dir/src/GPU_info.cpp.i
 .PHONY : src/GPU_info.cpp.i
 
 src/GPU_info.s: src/GPU_info.cpp.s
@@ -151,6 +166,7 @@ src/GPU_info.s: src/GPU_info.cpp.s
 # target to generate assembly for a file
 src/GPU_info.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/mig_scheduler.exe.dir/build.make CMakeFiles/mig_scheduler.exe.dir/src/GPU_info.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mig_scheduler_debug.exe.dir/build.make CMakeFiles/mig_scheduler_debug.exe.dir/src/GPU_info.cpp.s
 .PHONY : src/GPU_info.cpp.s
 
 src/MIG_manager.o: src/MIG_manager.cpp.o
@@ -159,6 +175,7 @@ src/MIG_manager.o: src/MIG_manager.cpp.o
 # target to build an object file
 src/MIG_manager.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/mig_scheduler.exe.dir/build.make CMakeFiles/mig_scheduler.exe.dir/src/MIG_manager.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mig_scheduler_debug.exe.dir/build.make CMakeFiles/mig_scheduler_debug.exe.dir/src/MIG_manager.cpp.o
 .PHONY : src/MIG_manager.cpp.o
 
 src/MIG_manager.i: src/MIG_manager.cpp.i
@@ -167,6 +184,7 @@ src/MIG_manager.i: src/MIG_manager.cpp.i
 # target to preprocess a source file
 src/MIG_manager.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/mig_scheduler.exe.dir/build.make CMakeFiles/mig_scheduler.exe.dir/src/MIG_manager.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mig_scheduler_debug.exe.dir/build.make CMakeFiles/mig_scheduler_debug.exe.dir/src/MIG_manager.cpp.i
 .PHONY : src/MIG_manager.cpp.i
 
 src/MIG_manager.s: src/MIG_manager.cpp.s
@@ -175,6 +193,7 @@ src/MIG_manager.s: src/MIG_manager.cpp.s
 # target to generate assembly for a file
 src/MIG_manager.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/mig_scheduler.exe.dir/build.make CMakeFiles/mig_scheduler.exe.dir/src/MIG_manager.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mig_scheduler_debug.exe.dir/build.make CMakeFiles/mig_scheduler_debug.exe.dir/src/MIG_manager.cpp.s
 .PHONY : src/MIG_manager.cpp.s
 
 src/main.o: src/main.cpp.o
@@ -183,6 +202,7 @@ src/main.o: src/main.cpp.o
 # target to build an object file
 src/main.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/mig_scheduler.exe.dir/build.make CMakeFiles/mig_scheduler.exe.dir/src/main.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mig_scheduler_debug.exe.dir/build.make CMakeFiles/mig_scheduler_debug.exe.dir/src/main.cpp.o
 .PHONY : src/main.cpp.o
 
 src/main.i: src/main.cpp.i
@@ -191,6 +211,7 @@ src/main.i: src/main.cpp.i
 # target to preprocess a source file
 src/main.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/mig_scheduler.exe.dir/build.make CMakeFiles/mig_scheduler.exe.dir/src/main.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mig_scheduler_debug.exe.dir/build.make CMakeFiles/mig_scheduler_debug.exe.dir/src/main.cpp.i
 .PHONY : src/main.cpp.i
 
 src/main.s: src/main.cpp.s
@@ -199,6 +220,7 @@ src/main.s: src/main.cpp.s
 # target to generate assembly for a file
 src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/mig_scheduler.exe.dir/build.make CMakeFiles/mig_scheduler.exe.dir/src/main.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mig_scheduler_debug.exe.dir/build.make CMakeFiles/mig_scheduler_debug.exe.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
 src/scheduler.o: src/scheduler.cpp.o
@@ -207,6 +229,7 @@ src/scheduler.o: src/scheduler.cpp.o
 # target to build an object file
 src/scheduler.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/mig_scheduler.exe.dir/build.make CMakeFiles/mig_scheduler.exe.dir/src/scheduler.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mig_scheduler_debug.exe.dir/build.make CMakeFiles/mig_scheduler_debug.exe.dir/src/scheduler.cpp.o
 .PHONY : src/scheduler.cpp.o
 
 src/scheduler.i: src/scheduler.cpp.i
@@ -215,6 +238,7 @@ src/scheduler.i: src/scheduler.cpp.i
 # target to preprocess a source file
 src/scheduler.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/mig_scheduler.exe.dir/build.make CMakeFiles/mig_scheduler.exe.dir/src/scheduler.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mig_scheduler_debug.exe.dir/build.make CMakeFiles/mig_scheduler_debug.exe.dir/src/scheduler.cpp.i
 .PHONY : src/scheduler.cpp.i
 
 src/scheduler.s: src/scheduler.cpp.s
@@ -223,6 +247,7 @@ src/scheduler.s: src/scheduler.cpp.s
 # target to generate assembly for a file
 src/scheduler.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/mig_scheduler.exe.dir/build.make CMakeFiles/mig_scheduler.exe.dir/src/scheduler.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mig_scheduler_debug.exe.dir/build.make CMakeFiles/mig_scheduler_debug.exe.dir/src/scheduler.cpp.s
 .PHONY : src/scheduler.cpp.s
 
 src/tasks.o: src/tasks.cpp.o
@@ -231,6 +256,7 @@ src/tasks.o: src/tasks.cpp.o
 # target to build an object file
 src/tasks.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/mig_scheduler.exe.dir/build.make CMakeFiles/mig_scheduler.exe.dir/src/tasks.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mig_scheduler_debug.exe.dir/build.make CMakeFiles/mig_scheduler_debug.exe.dir/src/tasks.cpp.o
 .PHONY : src/tasks.cpp.o
 
 src/tasks.i: src/tasks.cpp.i
@@ -239,6 +265,7 @@ src/tasks.i: src/tasks.cpp.i
 # target to preprocess a source file
 src/tasks.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/mig_scheduler.exe.dir/build.make CMakeFiles/mig_scheduler.exe.dir/src/tasks.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mig_scheduler_debug.exe.dir/build.make CMakeFiles/mig_scheduler_debug.exe.dir/src/tasks.cpp.i
 .PHONY : src/tasks.cpp.i
 
 src/tasks.s: src/tasks.cpp.s
@@ -247,6 +274,7 @@ src/tasks.s: src/tasks.cpp.s
 # target to generate assembly for a file
 src/tasks.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/mig_scheduler.exe.dir/build.make CMakeFiles/mig_scheduler.exe.dir/src/tasks.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mig_scheduler_debug.exe.dir/build.make CMakeFiles/mig_scheduler_debug.exe.dir/src/tasks.cpp.s
 .PHONY : src/tasks.cpp.s
 
 src/utils.o: src/utils.cpp.o
@@ -255,6 +283,7 @@ src/utils.o: src/utils.cpp.o
 # target to build an object file
 src/utils.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/mig_scheduler.exe.dir/build.make CMakeFiles/mig_scheduler.exe.dir/src/utils.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mig_scheduler_debug.exe.dir/build.make CMakeFiles/mig_scheduler_debug.exe.dir/src/utils.cpp.o
 .PHONY : src/utils.cpp.o
 
 src/utils.i: src/utils.cpp.i
@@ -263,6 +292,7 @@ src/utils.i: src/utils.cpp.i
 # target to preprocess a source file
 src/utils.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/mig_scheduler.exe.dir/build.make CMakeFiles/mig_scheduler.exe.dir/src/utils.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mig_scheduler_debug.exe.dir/build.make CMakeFiles/mig_scheduler_debug.exe.dir/src/utils.cpp.i
 .PHONY : src/utils.cpp.i
 
 src/utils.s: src/utils.cpp.s
@@ -271,6 +301,7 @@ src/utils.s: src/utils.cpp.s
 # target to generate assembly for a file
 src/utils.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/mig_scheduler.exe.dir/build.make CMakeFiles/mig_scheduler.exe.dir/src/utils.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mig_scheduler_debug.exe.dir/build.make CMakeFiles/mig_scheduler_debug.exe.dir/src/utils.cpp.s
 .PHONY : src/utils.cpp.s
 
 # Help Target
@@ -282,6 +313,7 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... mig_scheduler.exe"
+	@echo "... mig_scheduler_debug.exe"
 	@echo "... src/GPU_info.o"
 	@echo "... src/GPU_info.i"
 	@echo "... src/GPU_info.s"
