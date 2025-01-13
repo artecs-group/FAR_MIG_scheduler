@@ -66,7 +66,7 @@ To use the software, invoke the `mig_scheduler.exe` executable with the followin
      3. **Task Script**: The name of the script that executes the GPU kernels, defining the task.
 
 #### Example Usage
-To execute a set of GPU tasks from the Rodinia suite (included in this repository), you can use the following command (its important to run it with ``sudo`` administrative permissions to use MIG):
+To schedule a set of GPU tasks from the Rodinia suite (included in this repository), you can use the following command (its important to run it with ``sudo`` administrative permissions to use MIG):
 
 ```bash
 sudo ./mig_scheduler.exe 0 ../data/input_test/kernels_rodinia.txt
