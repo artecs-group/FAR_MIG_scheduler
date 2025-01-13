@@ -57,7 +57,7 @@ This will create two executable files: ``mig_scheduler.exe`` and ``mig_scheduler
 make
 ```
 ## Rodinia test
-The scheduler is ready to be tested with 9 kernels of the Rodinia suite. The code of Rodinia configured for that test is provided as file `gpu-rodinia.tar.gz`, attached in the releases due to its huge size (some IO files are very large). Either of these two options can be used to include it:
+The scheduler is ready to be tested with 9 kernels of the [Rodinia suite](https://lava.cs.virginia.edu/Rodinia/download_links.htm). The code of Rodinia configured for that test is provided as file `gpu-rodinia.tar.gz`, attached in the releases due to its huge size (some IO files are very large). Either of these two options can be used to include it:
 - Option 1:
   Run the `scripts/prepare_test_data.sh` script which will download the properly configured Rodinia kernels and data, unzip it and delete the compressed file.
   
