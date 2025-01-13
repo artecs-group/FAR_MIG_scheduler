@@ -3,12 +3,21 @@
 #include <fstream>
 #include <cstdlib>
 #include <sys/stat.h>
+#include <algorithm>
 
 using namespace std;
 
 void profile_tasks(vector<Task> & tasks, nvmlDevice_t device){
+    vector<Task*> tasks_failed;
     for (auto & task: tasks){
         task.profile_times(device);
+        if (task.has_error()){
+            tasks_failed.push_back(&task);
+        }
+    }
+    // Remove the tasks that failed from the list
+    for (auto task: tasks_failed){
+        tasks.erase(remove(tasks.begin(), tasks.end(), *task), tasks.end());
     }
     // Show the profiled times
     cout << "======================================" << endl;

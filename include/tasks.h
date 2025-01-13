@@ -19,8 +19,11 @@ struct Task {
 
     Task(string const& name, string const& parent_path, string const& script_name);
 
+    bool operator==(const Task& other) const; // Comparable tasks 
+
     bool execute(Instance const& instance) const;
     void profile_times(nvmlDevice_t device);
+    bool has_error() const; // Check if the task has an error (it failed with all instances sizes)
 
 };
 

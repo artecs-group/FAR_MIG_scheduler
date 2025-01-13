@@ -12,6 +12,18 @@ Task::Task(string const& name, string const& parent_path, string const& script_n
     exec_times = {};
 }
 
+bool Task::operator==(const Task& other) const{
+    return this->name == other.name;
+}
+
+bool Task::has_error() const{
+    // Check if the task has an error (infinite time with all instances sizes)
+    for (auto const& exec_time: this->exec_times){
+        if (exec_time.second != DBL_MAX) return false;
+    }
+    return true;
+}
+
 static string exec_command(Task const& task, Instance const& instance){
     // Move to task directory
     string command = "cd " + task.parent_path;

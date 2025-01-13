@@ -172,7 +172,7 @@ mig_scheduler.exe: CMakeFiles/mig_scheduler.exe.dir/src/scheduler.cpp.o
 mig_scheduler.exe: CMakeFiles/mig_scheduler.exe.dir/src/tasks.cpp.o
 mig_scheduler.exe: CMakeFiles/mig_scheduler.exe.dir/src/utils.cpp.o
 mig_scheduler.exe: CMakeFiles/mig_scheduler.exe.dir/build.make
-mig_scheduler.exe: /usr/local/cuda-12.3/lib64/libcudart_static.a
+mig_scheduler.exe: /usr/local/cuda/lib64/libcudart_static.a
 mig_scheduler.exe: /usr/lib/x86_64-linux-gnu/librt.a
 mig_scheduler.exe: CMakeFiles/mig_scheduler.exe.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/jorvil01/FAR_MIG_scheduler/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable mig_scheduler.exe"

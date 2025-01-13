@@ -237,8 +237,8 @@ void destroy_instance(Instance const& instance){
         exit(1);
     }
     result = nvmlGpuInstanceDestroy(instance.gpuInstance);
-    if(result != NVML_SUCCESS){
-        LOG_ERROR("Failed to destroy GPU instance: " + string(nvmlErrorString(result)));
-        exit(1);
+    // Sometimes the gpu instance destroy fails during a little time, so we try again. It will work if the compute instance has been destroyed
+    while(result != NVML_SUCCESS){
+        result = nvmlGpuInstanceDestroy(instance.gpuInstance);
     }
 }
