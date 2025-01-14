@@ -1,5 +1,5 @@
 # FAR scheduler for NVIDIA Multi-Instance GPU (MIG)
-This repository contains a C++ implementation of the FAR task scheduler, targeted for NVIDIA GPUs that support physical partitioning via Multi-Instance GPU (MIG). This scheduler is useful for reducing the joint execution time of tasks (makespan) by cleverly co-executing them with MIG. The FAR algorithm used by the scheduler is presented and accompanied by a comprehensive evaluation in [this paper](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4958466) (preprint for the moment). 
+This repository contains a C++ implementation of the FAR task scheduler, targeted for NVIDIA GPUs that support physical partitioning via [Multi-Instance GPU](https://docs.nvidia.com/datacenter/tesla/mig-user-guide/) (MIG). This scheduler is useful for reducing the joint execution time of tasks (makespan) by cleverly co-executing them with MIG. The FAR algorithm used by the scheduler is presented and accompanied by a comprehensive evaluation in [this paper](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4958466) (preprint for the moment). 
 
 ## Supported GPUs
 Currently, the software explicitly supports the following NVIDIA GPU models:  
@@ -8,8 +8,6 @@ Currently, the software explicitly supports the following NVIDIA GPU models:
 - **NVIDIA H100**
   
 Moreover, it probably works correctly for models with the same MIG characteristics as some of the above. In particular, it will probably work for models NVIDIA B100 and B200 that have the same MIG partitioning as A100 and H100, although it is not tested for them.
-
-For the A100 and H100 models, the [MIG API of the NVML library](https://docs.nvidia.com/deploy/nvml-api/group__nvmlMultiInstanceGPU.html) currently has some bugs in the handling of some instances, and the scheduler may not work correctly. With a future version of the library that fixes these problems the scheduler should work perfectly for these GPUs.
 
 ## Requirements
 To use this software, ensure the following prerequisites are met:
@@ -68,7 +66,7 @@ The scheduler is ready to be tested with 9 kernels of the [Rodinia suite](https:
 - Option 2
 Download the file `gpu-rodinia.tar.gz` from some release of this repository, and unzip its content using some tool like gzip in the path `data/kernels`.
 
-Once this is done, the test can be run by executing the scheduler as indicated in the next section. The path`../input_test/kernels_rodinia.txt` must be pass as task file (second argument of the program).
+Once this is done, the test can be run by executing the scheduler as indicated in the next section. The path `../input_test/kernels_rodinia.txt` must be pass as task file (second argument of the program).
 
 ## Usage
 To use the software, invoke the `mig_scheduler.exe` executable with the following arguments:
@@ -120,7 +118,7 @@ During execution, the program provides detailed logging through standard output 
    INFO: Task gaussian profiled with 22.13s in size 1
    ```
 3. **Repartitioning Tree and Scheduling Plan**<br>
-   The program computes and outputs the repartitioning tree, including the scheduling plan calculated by the algorithm and the estimated execution times. See the paper for more details. Example output:
+   The program calculates and outputs a partitioning tree that includes the scheduling plan calculated by the algorithm and the estimated execution times. These trees show the hierarchy of possible instances on the GPU being used across the nodes, storing in each of them the expected completion time of their tasks during execution (`end` attribute) and a list with the names of the tasks to be executed (`task` attribute). For more details on these trees see Section 3.2 of the [paper](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4958466), especially the references to Figure 4. Example output:
    ```
     ======================================
     Repartitioning tree:
@@ -147,6 +145,11 @@ During execution, the program provides detailed logging through standard output 
    ```
    INFO: MIG has been deactivated
    ```
+## Known Issues
+
+- **Bugs in NVIDIA A100 and H100**: In these models, the [MIG API of the NVML library](https://docs.nvidia.com/deploy/nvml-api/group__nvmlMultiInstanceGPU.html) currently has some bugs in the handling of some instances, and the scheduler may not work correctly. Most of the problems occur with the size 3 instances supported exclusively by these GPUs which, as explained in the paper, are of little importance for the scheduler. However, there are some other errors that may appear occasionally. With a future version of the library that fixes these problems the scheduler should work perfectly for these GPUs.
+- **Error in the destruction of instance “device in use by another user”**: Sometimes an instance that has been released is briefly locked for a short period of time with the message “device in use by another user”. The code solves this by trying to remove it in a loop until it succeeds, usually after a few tenths of a second. This influences very slightly the actual execution of the schedule, which would be slightly improved if the library would fix this bug in the future.
+
 ## Publications
 The paper presenting this scheduler is currently under review. For the moment you can access the [preprint](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4958466).
 ## Acknowledgements
