@@ -20,6 +20,7 @@ static void recursive_tree_execution(shared_ptr<TreeNode> node, nvmlDevice_t dev
 
 TreeNode::TreeNode(int start, int size, weak_ptr<TreeNode> parent) : start(start), size(size), parent(parent) {
     tasks = {};
+    end_times = {};
     end = 0;
 }
 
@@ -162,10 +163,11 @@ static shared_ptr<TreeNode> repartitioning_schedule(Allocation const& allocation
                 reconfig_end += global_GPU_info->times_create[node->size];
                 node->end = reconfig_end;
             }
-
             // Assign the task to the node
             node->tasks.push_back(task);
             node->end += task->exec_times.at(node->size);
+            // Save the end time of the task for logging purposes
+            node->end_times.push_back(node->end);
 
             // Return the node to the heap
             heap.push(node);
@@ -265,7 +267,11 @@ void TreeNode::show_tree() const{
         for (int i = 0; i < level; i++){
             cout << "--";
         }
-        cout << "Node(start=" << node.start << ", size=" << node.size << ", end=" << node.end << ", tasks=[";
+        cout << "Node(start=" << node.start << ", size=" << node.size << ", ends=[";
+        for (auto end_time: node.end_times){
+            cout << end_time << " ";
+        }
+        cout << "], tasks=[";
         for (auto const& task: node.tasks){
             cout << task->name << " ";
         }

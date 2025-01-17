@@ -14,7 +14,8 @@ struct TreeNode{
     int start, size; // Slice of start and size of the instance
     vector<Task*> tasks;// Tasks to execute in this node  
     vector<shared_ptr<TreeNode>> children; // Children of this node
-    double end; // End time of the node execution
+    vector<double> end_times; // End time of the tasks in this node
+    double end; // End time of the last task in this node
     weak_ptr<TreeNode> parent; // Parent of this node (needed for the refinement)
 
     TreeNode(int start, int size, weak_ptr<TreeNode> parent = weak_ptr<TreeNode>());
