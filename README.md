@@ -45,7 +45,9 @@ Edit the first line of `/FAR_MIG_scheduler/CMakeLists.txt` changing the CUDA_ROO
 set(CUDA_ROOT "/usr/local/cuda" CACHE PATH "CUDA Toolkit root directory")
 ```
 #### 3. Generate build files with CMake and compile the project
+You must be located in the root directory of the project (`FAR_MIG_scheduler`). Build it in a `FAR_MIG_scheduler/build` directory:
 ```bash
+mkdir -p build
 cd build
 cmake ..
 ```
@@ -64,7 +66,7 @@ The scheduler is ready to be tested with 9 kernels of the [Rodinia suite](https:
   sh prepare_test_data.sh
   ```
 - Option 2
-Download the file `gpu-rodinia.tar.gz` from some release of this repository, and unzip its content using some tool like gzip in the path `data/kernels`.
+Download the file `gpu-rodinia.tar.gz` from some release of this repository, and unzip its content using some tool like gzip in the path `FAR_MIG_scheduler/data/kernels`.
 
 Once this is done, the test can be run by executing the scheduler as indicated in the next section. The path `../input_test/kernels_rodinia.txt` must be pass as task file (second argument of the program).
 
