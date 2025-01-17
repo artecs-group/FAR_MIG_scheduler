@@ -35,7 +35,7 @@ To install and build the project, follow these steps:
 #### 1. Download the repository
 One option is to clone this repository on your local machine using the following command:
 ```bash
-git clone https://github.com/Jorgitou98/FAR_MIG_scheduler.git
+git clone https://github.com/artecs-group/FAR_MIG_scheduler.git
 cd FAR_MIG_scheduler
 ```
 Another option is to download it from one of the generated releases.
