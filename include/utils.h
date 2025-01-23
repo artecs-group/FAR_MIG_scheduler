@@ -21,5 +21,7 @@ using namespace std;
 
 vector<Task> get_tasks(const string & kernels_path);
 void profile_tasks(vector<Task> & tasks, nvmlDevice_t device);
+void redirect_output(Task const& task, int & stdout_backup, int & stderr_backup);
+void restore_output(int stdout_backup, int stderr_backup);
 
 #endif // UTILS_H

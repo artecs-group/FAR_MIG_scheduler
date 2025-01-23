@@ -1,12 +1,15 @@
 #include "tasks.h"
 #include "GPU_info.h"
 #include "logging.h"
+#include "utils.h"
+#include <stdio.h>
 #include <sys/time.h>
 #include <stdexcept>
 #include <cfloat>
 #include <unistd.h>
 
 using namespace std;
+
 
 Task::Task(string const& name, string const& parent_path, string const& script_name) : name(name), parent_path(parent_path), script_name(script_name) {
     exec_times = {};
@@ -44,10 +47,13 @@ static string exec_command(Task const& task, Instance const& instance){
     command += " && cd " + string(currentDirectory);
 
     return command;
-} 
-
+}
 
 void Task::execute(Instance const& instance) const{
+    // Redirect the stdout and stderr to a log file
+    int stdout_backup, stderr_backup;
+    redirect_output(*this, stdout_backup, stderr_backup);
+
     // Execute the task in the given instance
     string command = exec_command(*this, instance);
     int status = system(command.c_str());
@@ -56,6 +62,9 @@ void Task::execute(Instance const& instance) const{
         // If there was an error executing the task, throw an exception to set infinite time for it
         throw runtime_error("Task execution failed");
     }
+
+    // Restore the stdout and stderr
+    restore_output(stdout_backup, stderr_backup);
 }
 
 void Task::profile_times(nvmlDevice_t device){
@@ -66,6 +75,7 @@ void Task::profile_times(nvmlDevice_t device){
         // Create the instance
         Instance instance = create_instance(device, 0, instance_size);
         try{
+            cout << "\nProfiling task " << this->name << " with size " << instance_size << endl;
             // Measure and save the execution time
             gettimeofday(&init_time, NULL);
             this->execute(instance);

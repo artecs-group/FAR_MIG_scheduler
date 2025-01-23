@@ -173,7 +173,7 @@ static string get_instance_uuid(nvmlDevice_t device, nvmlGpuInstance_t gpuInstan
         LOG_ERROR("Failed to get instance UUID: " + string(nvmlErrorString(result)));
         exit(1);
     }
-    else LOG_INFO("Instance UUID: " + string(uuid));
+    //else LOG_INFO("Instance UUID: " + string(uuid));
 
     return string(uuid); 
 }

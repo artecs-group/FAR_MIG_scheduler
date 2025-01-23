@@ -61,7 +61,7 @@ void initialize_GPU_info(const string& gpu_name){
 }
 
 void profile_reconfig_times(nvmlDevice_t device){
-    LOG_INFO("Profiling instance creation and destruction times");
+    cout << "\nProfiling instance creation and destruction times:" << endl;
     struct timeval init_time, end_time;
     for (unsigned int size: global_GPU_info->valid_instance_sizes){
         // Measure creation time

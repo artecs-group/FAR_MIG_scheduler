@@ -4,6 +4,11 @@
 #include <cstdlib>
 #include <sys/stat.h>
 #include <algorithm>
+#include <stdio.h>
+#include <sys/types.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <errno.h>
 
 using namespace std;
 
@@ -64,4 +69,59 @@ vector<Task> get_tasks(const string & kernels_filename){
     }
     cout << endl;
     return tasks;
+}
+
+void redirect_output(Task const& task, int & stdout_backup, int & stderr_backup){
+    // Get current directory
+    char currentDirectory[1024];
+    if (getcwd(currentDirectory, sizeof(currentDirectory)) == nullptr) {
+        LOG_ERROR("Get current directory");
+        exit(1);
+    }
+    time_t now = time(NULL);
+    struct tm *t = localtime(&now);
+    string dir_logs = string(currentDirectory) + "/logs-" + to_string(t->tm_year + 1900) + "-" + to_string(t->tm_mon + 1) + "-" + to_string(t->tm_mday) + "/";
+    struct stat st;
+    if (stat(dir_logs.c_str(), &st) == -1) {
+        if (errno == ENOENT) {
+            // The directory does not exist, create it
+            if (mkdir(dir_logs.c_str(), 0755) == -1) {
+                perror("Error creating /logs directory");
+                exit(1);
+            }
+        } else {
+            perror("Error checking /logs directory");
+            exit(1);
+        }
+    }
+    string file_log = dir_logs + task.name + ".log";
+    int log_fd = open(file_log.c_str(), O_WRONLY | O_CREAT | O_APPEND, 0666);
+    if (log_fd == -1){
+        LOG_ERROR("Error opening log file for task " + task.name);
+        perror("open");
+        exit(1);
+    }
+    stdout_backup = dup(STDOUT_FILENO);
+    stderr_backup = dup(STDERR_FILENO);
+    if (stdout_backup == -1 || stderr_backup == -1){
+        LOG_ERROR("Error duplicating stdout and stderr");
+        perror("dup");
+        exit(1);
+    }
+    if (dup2(log_fd, STDOUT_FILENO) == -1 || dup2(log_fd, STDERR_FILENO) == -1){
+        LOG_ERROR("Error redirecting stdout and stderr to log file");
+        perror("dup2");
+        exit(1);
+    }
+    close(log_fd);
+}
+
+void restore_output(int stdout_backup, int stderr_backup){
+   if (dup2(stdout_backup, STDOUT_FILENO) == -1 || dup2(stderr_backup, STDERR_FILENO) == -1){
+        LOG_ERROR("Error restoring stdout and stderr");
+        perror("dup2");
+        exit(1);
+    }
+    close(stdout_backup);
+    close(stderr_backup);
 }
