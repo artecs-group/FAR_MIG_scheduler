@@ -321,13 +321,9 @@ static void refinement(shared_ptr<TreeNode> & root){
                 if (visited.find(instance->parent.lock()) == visited.end())  nodes.push(instance->parent.lock());    
                 continue;
             }
-            LOG_INFO("Alternative instance " + to_string(alt->start) + " " + to_string(alt->size) + " end time: " + to_string(alt_end) + "s");
-
 
             // Search a task for moving in the current instance
             int task_index = search_move_critical_task(instance->size, instance->get_makespan(), alt_end, instance->tasks);
-
-            LOG_INFO("Task index: " + to_string(task_index));
 
             if (task_index != -1){ // If there is a task to move
                 // Insert the task sorted by time in the alternative instance
