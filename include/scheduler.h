@@ -9,16 +9,24 @@ using namespace std;
 
 typedef unordered_map<unsigned int, unordered_set<Task*>> Allocation;
 
+// GPU slice scheudling info
+struct Slice{
+    unsigned int number;
+    double end_time = 0;
+};
+
 // Repartition tree structure
 struct TreeNode{
     int start, size; // Slice of start and size of the instance
+    vector<shared_ptr<Slice>> slices; // Slices of the instance
     vector<Task*> tasks;// Tasks to execute in this node  
     vector<shared_ptr<TreeNode>> children; // Children of this node
     vector<double> end_times; // End time of the tasks in this node
     double end; // End time of the last task in this node
     weak_ptr<TreeNode> parent; // Parent of this node (needed for the refinement)
 
-    TreeNode(int start, int size, weak_ptr<TreeNode> parent = weak_ptr<TreeNode>());
+    // Constructor
+    TreeNode(vector<shared_ptr<Slice>> const& slices, weak_ptr<TreeNode> parent = weak_ptr<TreeNode>());
 
     void show_tree() const; // Show the complete current tree in detail
     double get_makespan() const; // Get the makespan of the tree

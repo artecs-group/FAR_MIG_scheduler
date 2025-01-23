@@ -47,7 +47,7 @@ static string exec_command(Task const& task, Instance const& instance){
 } 
 
 
-bool Task::execute(Instance const& instance) const{
+void Task::execute(Instance const& instance) const{
     // Execute the task in the given instance
     string command = exec_command(*this, instance);
     int status = system(command.c_str());
@@ -56,7 +56,6 @@ bool Task::execute(Instance const& instance) const{
         // If there was an error executing the task, throw an exception to set infinite time for it
         throw runtime_error("Task execution failed");
     }
-    return true;
 }
 
 void Task::profile_times(nvmlDevice_t device){

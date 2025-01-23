@@ -51,6 +51,11 @@ int main(int argc, char* argv[]){
      // Get the allocations family
      TreeNode tree_schedule = FAR_schedule_tasks(tasks);
 
+     // Show final schedule
+     LOG_INFO("Final schedule:");
+     tree_schedule.show_tree();
+     cout << "Tree makespan: " << tree_schedule.get_makespan() << 's' << endl;
+
      DEBUG_PAUSE("Start execution of the schedule."); // Pause in debug mode with info
      
      // Execute the tasks in the GPU following the tree schedule
