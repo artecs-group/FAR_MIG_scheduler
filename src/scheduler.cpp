@@ -358,14 +358,18 @@ void TreeNode::show_tree() const{
         for (int i = 0; i < level; i++){
             cout << "--";
         }
-        cout << "Node(start=" << node.start << ", size=" << node.size << ", ends=[";
-        for (auto end_time: node.end_times){
-            cout << end_time << " ";
+        cout << "Node(start=" << node.start << ", size=" << node.size << ", tasks=[";
+        int num_tasks = (node.tasks).size();
+        for (int i = 0; i < num_tasks - 1; i++){
+            cout << (node.tasks[i])->name << ", ";
         }
-        cout << "], tasks=[";
-        for (auto const& task: node.tasks){
-            cout << task->name << " ";
+        if (!node.tasks.empty()) cout << (node.tasks.back())->name;
+        cout << "], ends=[";
+        int num_end_times = (node.end_times).size();
+        for (int i = 0; i < num_end_times - 1; i++){
+            cout << node.end_times[i] << ", ";
         }
+        if (!node.end_times.empty()) cout << node.end_times.back();
         cout << "])" << endl;
         for (auto const& child: node.children){
             show_node(*child, level + 1);
