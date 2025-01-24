@@ -40,9 +40,6 @@ static string exec_command(Task const& task, Instance const& instance){
         exit(1);
     }
 
-    // TO DO: Redirect the output to a log file for the task
-    // command += " &>> " + string(currentDirectory) + "/logs/" + task.name + ".log";
-
     // Return to the original directory
     command += " && cd " + string(currentDirectory);
 
@@ -57,14 +54,14 @@ void Task::execute(Instance const& instance) const{
     // Execute the task in the given instance
     string command = exec_command(*this, instance);
     int status = system(command.c_str());
+
+    // Restore the stdout and stderr
+    restore_output(stdout_backup, stderr_backup);
     if (status != 0){
         cout << "ERROR: Task " << this->name << " failed with " << instance << endl;
         // If there was an error executing the task, throw an exception to set infinite time for it
         throw runtime_error("Task execution failed");
     }
-
-    // Restore the stdout and stderr
-    restore_output(stdout_backup, stderr_backup);
 }
 
 void Task::profile_times(nvmlDevice_t device){
