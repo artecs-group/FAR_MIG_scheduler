@@ -120,33 +120,39 @@ During execution, the program provides detailed logging through standard output 
    INFO: Task gaussian profiled with 22.13s in size 1
    ```
 3. **Repartitioning Tree and Scheduling Plan**<br>
-   The program calculates and outputs a partitioning tree that includes the scheduling plan calculated by the algorithm and the estimated execution times. These trees show the hierarchy of possible instances on the GPU being used across the nodes, storing in each of them the expected completion time of their tasks during execution (`end` attribute) and a list with the names of the tasks to be executed (`task` attribute). For more details on these trees see Section 3.2 of the [paper](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4958466), especially the references to Figure 4. Example output:
+   The program calculates and outputs a partitioning tree that includes the scheduling plan calculated by the algorithm and the estimated execution times. These trees show the hierarchy of possible instances on the GPU being used across the nodes, storing in each of them a list with the names of the tasks to be executed (`task` attribute), along with the list of the expected completion time for them (`end` attribute). For more details on these trees see Section 3.2 of the [paper](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4958466), especially the references to Figure 4. Example of output:
    ```
     ======================================
-    Repartitioning tree:
-    Node(start=0, size=4, end=0, tasks=[])
-    --Node(start=0, size=2, end=18.05, tasks=[pathfinder ])
-    ----Node(start=0, size=1, end=18.05, tasks=[])
-    ----Node(start=1, size=1, end=18.05, tasks=[])
-    --Node(start=2, size=2, end=11.69, tasks=[gaussian ])
-    ----Node(start=2, size=1, end=11.69, tasks=[])
-    ----Node(start=3, size=1, end=11.69, tasks=[])
-    Tree makespan: 18.05s
+    Node(start=0, size=4, tasks=[], ends=[])
+    --Node(start=0, size=2, tasks=[lavaMD], ends=[21.72])
+    ----Node(start=0, size=1, tasks=[huffman, heartwall], ends=[23.01, 23.05])
+    ----Node(start=1, size=1, tasks= [nw, particlefilter], ends=[22.79, 23.23])
+    --Node(start=2, size=2, tasks=[], ends=[])
+    ----Node(start=2, size=1, tasks=[gaussian], ends=[22.45])
+    ----Node(start=3, size=1, tasks=[pathfinder, lu], ends=[21.09, 28.86])
+    Tree makespan: 28.86s
     ======================================
    ```
-4. **Task Execution**<br>
-   Tasks are executed on the GPU according to the scheduling plan, with real-time execution reports for each task, including start and end times:
+   In the example below, the `lavaMD` task has been assigned to the GPU instance spanning the first 2 slices (`start = 0` and `size = 2`). This task is expected to complete in `21.72s` after the execution of the entire set of tasks begins. Once it finishes, that GPU instance will be split into two instances of size 1: the first with `start = 0` and `size = 1`, and the second with `start = 1` and `size = 1`. The `huffman` and `heartwall` tasks are assigned to the first new instance and are expected to finish at `23.01s` and `23.05s`, respectively, from the start of the overall execution. Similarly, the `nw` and `particlefilter` tasks are assigned to the second GPU instance, and are expected to finish at `22.79s` and `23.23s`, respectively, from the start.
+5. **Task Execution**<br>
+   Tasks are executed on the GPU according to the scheduling plan, with real-time execution reports for each task, including real start and end times:
    ```
-   INFO: Start task pathfinder at 0.13s
-   INFO: Start task gaussian at 0.25s
-   INFO: End task gaussian at 11.70s
-   INFO: End task pathfinder at 18.06s
+   INFO: Start task pathfinder at 0.12s
+   ...
+   INFO: End task pathfinder at 20.64s
+   ...
+   INFO: Start task huffman at 20.85s
+   ...
+   INFO: End task huffman at 23.54s
    ```
-5. **MIG Deactivation**<br>
+6. **MIG Deactivation**<br>
    After task execution is completed, the program deactivates MIG and logs the corresponding information:
    ```
    INFO: MIG has been deactivated
    ```
+#### Task execution output
+To facilitate the tracking of the execution through the above mentioned reports, during the execution of each task, the standard and error outputs are redirected to a file in with the path `./logs-<year>-<month>-<day>/<task name>.log`. These files, indexed by date, accumulate the output of the different executions of each task in a day. Thus, the standard output of the scheduler is much more summarized and shows the primary information of the proposal (as explained above).
+
 ## Known Issues
 
 - **Bugs in NVIDIA A100 and H100**: In these models, the [MIG API of the NVML library](https://docs.nvidia.com/deploy/nvml-api/group__nvmlMultiInstanceGPU.html) currently has some bugs in the handling of some instances, and the scheduler may not work correctly. Most of the problems occur with the size 3 instances supported exclusively by these GPUs which, as explained in the paper, are of little importance for the scheduler. However, there are some other errors that may appear occasionally. With a future version of the library that fixes these problems the scheduler should work perfectly for these GPUs.
