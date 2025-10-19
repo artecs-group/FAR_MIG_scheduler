@@ -159,6 +159,9 @@ To facilitate the tracking of the execution through the above mentioned reports,
 - **Error in the destruction of instance “device in use by another user”**: Sometimes an instance that has been released is briefly locked for a short period of time with the message “device in use by another user”. The code solves this by trying to remove it in a loop until it succeeds, usually after a few tenths of a second. This influences very slightly the actual execution of the schedule, which would be slightly improved if the library would fix this bug in the future.
 
 ## Publications
-The paper presenting this scheduler is currently under review. For the moment you can access the [preprint](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4958466).
+- Jorge Villarrubia, Luis Costero, Francisco D. Igual and Katzalin Olcoz.
+  "Leveraging Multi-Instance GPUs through moldable task scheduling",
+  Journal of Parallel and Distributed Computing, 2025, Volume 204, pages 105-128.
+  - [Free avaliable here](https://doi.org/10.1016/j.jpdc.2025.105128)
 ## Acknowledgements
 This work is funded by Grant PID2021-126576NB-I00 funded by MCIN/AEI/10.13039/501100011033 and by _"ERDF A way of making Europe"_. 
