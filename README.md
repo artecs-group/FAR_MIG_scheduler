@@ -1,5 +1,5 @@
 # FAR scheduler for NVIDIA Multi-Instance GPU (MIG)
-This repository contains a C++ implementation of the FAR task scheduler, targeted for NVIDIA GPUs that support physical partitioning via [Multi-Instance GPU](https://docs.nvidia.com/datacenter/tesla/mig-user-guide/) (MIG). This scheduler is useful for reducing the joint execution time of tasks (makespan) by cleverly co-executing them with MIG. The FAR algorithm used by the scheduler is presented and accompanied by a comprehensive evaluation in [this paper](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4958466) (preprint for the moment). 
+This repository contains a C++ implementation of the FAR task scheduler, targeted for NVIDIA GPUs that support physical partitioning via [Multi-Instance GPU](https://docs.nvidia.com/datacenter/tesla/mig-user-guide/) (MIG). This scheduler is useful for reducing the joint execution time of tasks (makespan) by cleverly co-executing them with MIG. The FAR algorithm used by the scheduler is presented and accompanied by a comprehensive evaluation in [this paper](https://doi.org/10.1016/j.jpdc.2025.105128). 
 
 ## Supported GPUs
 Currently, the software explicitly supports the following NVIDIA GPU models:  
@@ -109,7 +109,7 @@ During execution, the program provides detailed logging through standard output 
    INFO: MIG has been activated
    ```
 2. **Profiling Times**<br>
-   The program profiles reconfiguration times (creation and destruction of MIG instances) and task execution times. Note: Task profiling is currently done by executing tasks but may be replaced with faster profiling methods in future versions (see [the paper](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4958466) for references). Example output:
+   The program profiles reconfiguration times (creation and destruction of MIG instances) and task execution times. Note: Task profiling is currently done by executing tasks but may be replaced with faster profiling methods in future versions (see [the paper](https://doi.org/10.1016/j.jpdc.2025.105128) for references). Example output:
    ```
    INFO: Profiling instance creation and destruction times
    INFO: Instance(start=0, size=1) has been created
@@ -120,7 +120,7 @@ During execution, the program provides detailed logging through standard output 
    INFO: Task gaussian profiled with 22.13s in size 1
    ```
 3. **Repartitioning Tree and Scheduling Plan**<br>
-   The program calculates and outputs a partitioning tree that includes the scheduling plan calculated by the algorithm and the estimated execution times. These trees show the hierarchy of possible instances on the GPU being used across the nodes, storing in each of them a list with the names of the tasks to be executed (`task` attribute), along with the list of the expected completion time for them (`end` attribute). For more details on these trees see Section 3.2 of the [paper](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4958466), especially the references to Figure 4. Example of output:
+   The program calculates and outputs a partitioning tree that includes the scheduling plan calculated by the algorithm and the estimated execution times. These trees show the hierarchy of possible instances on the GPU being used across the nodes, storing in each of them a list with the names of the tasks to be executed (`task` attribute), along with the list of the expected completion time for them (`end` attribute). For more details on these trees see Section 3.2 of the [paper](https://doi.org/10.1016/j.jpdc.2025.105128), especially the references to Figure 4. Example of output:
    ```
     ======================================
     Node(start=0, size=4, tasks=[], ends=[])
